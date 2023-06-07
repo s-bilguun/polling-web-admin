@@ -87,7 +87,7 @@ const PollPage = ({ onUserManagementClick }) => {
   return (
     <Layout onUserManagementClick={onUserManagementClick}>
       
-      <div>
+      <div className='container'>
         <h1>Poll Details</h1>
         <h2>Question: {poll.question}</h2>
         <p>Start Date: {poll.startDate}</p>

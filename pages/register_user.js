@@ -38,14 +38,20 @@ const AddUser = () => {
           </div>
           <div className="form-group">
             <label htmlFor="role">Role</label>
-            <select
-              className="text-input"
-              id="role"
-            >
+            <select className="text-input" id="role">
               <option value="admin">User</option>
               <option value="user">Admin</option>
             </select>
           </div>
+          <div className="form-group">
+  <label htmlFor="birthday">Birthday</label>
+  <input
+    className="text-input"
+    id="birthday"
+    type="date"
+    placeholder="Birthday"
+  />
+</div>
           <div className="form-group">
             <label htmlFor="profilePicture">Profile Picture</label>
             <input
@@ -55,10 +61,7 @@ const AddUser = () => {
               accept="image/*"
             />
           </div>
-          <button
-            className="add-user-submit"
-            type="submit"
-          >
+          <button className="add-user-submit" type="submit">
             Add User
           </button>
         </form>
