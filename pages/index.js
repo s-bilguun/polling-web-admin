@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import '../src/app/globals.css';
+import UserDetails from './UserDetails';
 import Layout from './Layout';
 
 const AdminPage = () => {
@@ -21,7 +22,11 @@ const AdminPage = () => {
   ]);
 
   const handlePollClick = (id) => {
-    router.push(`/polls/${id}`);
+    router.push(`/poll/${id}`);
+  };
+
+  const handleUserClick = (id) => {
+    router.push(`/user/${id}`);
   };
 
   const handleRemoveUser = (userId) => {
@@ -60,20 +65,20 @@ const AdminPage = () => {
               className="text-blue-500 cursor-pointer"
               onClick={() => handlePollClick(poll.id)}
             >
-              <Link href={`/polls/${poll.id}`}>
+              <Link href={`/poll/${poll.id}`}>
                 <div>{poll.question}</div>
               </Link>
             </li>
           ))}
         </ul>
 
-             {/* Button for user management */}
-      <button
-        className="bg-blue-500 text-white py-2 px-4 rounded manage-users-button"
-        onClick={handleUserManagementClick}
-      >
-        Manage Users
-      </button>
+        {/* Button for user management */}
+        <button
+          className="bg-blue-500 text-white py-2 px-4 rounded manage-users-button"
+          onClick={handleUserManagementClick}
+        >
+          Manage Users
+        </button>
 
         {/* List of registered users */}
         {showUserList && (
@@ -82,7 +87,12 @@ const AdminPage = () => {
             <ul className="mb-4">
               {users.map((user) => (
                 <li key={user.id} className="flex items-center justify-between">
-                  <div>{user.name}</div>
+                  <div
+                    className="text-blue-500 cursor-pointer"
+                    onClick={() => handleUserClick(user.id)}
+                  >
+                    {user.name}
+                  </div>
                   <div>
                     <button
                       className="text-red-500 mr-2 remove-button"

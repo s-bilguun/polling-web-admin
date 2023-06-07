@@ -3,8 +3,8 @@ const nextConfig = {
     async rewrites() {
       return [
         {
-          source: '/polls/:pollid',
-          destination: '/polls/[pollid]',
+          source: '/poll/:pollid',
+          destination: '/poll/[pollid]',
         },
       ];
     },
