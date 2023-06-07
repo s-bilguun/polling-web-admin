@@ -63,7 +63,7 @@ body {
 }
 
 header {
-  background-color: rgb(216, 208, 208);
+  background-color: rgb(183, 222, 230);
   padding: 1rem;
   margin-bottom: 3%;
 }
@@ -233,3 +233,74 @@ header h1 {
 .mb-4 {
   margin-bottom: 30px;
 }
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 40%;
+  height: 60%;
+  margin: auto;
+  margin-top: 10%;
+  padding: 5rem;
+  box-sizing: border-box;
+  background-color: rgb(146, 241, 237);
+}
+
+.login-container h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.login-container form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-container form div {
+  margin-bottom: 1rem;
+}
+
+.login-container label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.login-container input {
+  padding: 0.5rem;
+  width: 100%;
+}
+
+.login-container button {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.login-container button:hover {
+  background-color: #0056b3;
+}
+
+@media (prefers-color-scheme: dark) {
+  .login-container {
+    background-color: #074e99;
+  }
+
+  .login-container h1,
+  .login-container label {
+    color: white;
+  }
+  .login-container input {
+    background-color: #263859;
+    color: white;
+  }
+  .login-container button {
+    background-color: #0b78d4;
+    color: white;
+  }
+}
+
