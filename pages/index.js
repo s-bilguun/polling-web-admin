@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import '../../src/app/admin-page.css';
+import '../src/app/globals.css';
 
 const AdminPage = () => {
   const polls = [
@@ -20,7 +20,7 @@ const AdminPage = () => {
   ]);
 
   const handlePollClick = (id) => {
-    router.push(`/admin/polls/${id}`);
+    router.push(`/polls/${id}`);
   };
 
   const handleRemoveUser = (userId) => {
@@ -57,7 +57,7 @@ const AdminPage = () => {
             className="text-blue-500 cursor-pointer"
             onClick={() => handlePollClick(poll.id)}
           >
-            <Link href={`/admin/polls/${poll.id}`}>
+            <Link href={`/polls/${poll.id}`}>
               <div>{poll.question}</div>
             </Link>
           </li>
