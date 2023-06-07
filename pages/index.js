@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import '../src/app/globals.css';
+import Layout from './Layout';
 
 const AdminPage = () => {
   const polls = [
@@ -46,25 +47,27 @@ const AdminPage = () => {
   };
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-4">Admin Page</h1>
+    <Layout onUserManagementClick={handleUserManagementClick}>
+      <div className="container mx-auto p-4">
+        
+        <h1 className="text-3xl font-bold mb-4">Admin Page</h1>
 
-      <h2 className="text-2xl font-semibold mb-2">Polls</h2>
-      <ul className="mb-4">
-        {polls.map((poll) => (
-          <li
-            key={poll.id}
-            className="text-blue-500 cursor-pointer"
-            onClick={() => handlePollClick(poll.id)}
-          >
-            <Link href={`/polls/${poll.id}`}>
-              <div>{poll.question}</div>
-            </Link>
-          </li>
-        ))}
-      </ul>
+        <h2 className="text-2xl font-semibold mb-2">Polls</h2>
+        <ul className="mb-4">
+          {polls.map((poll) => (
+            <li
+              key={poll.id}
+              className="text-blue-500 cursor-pointer"
+              onClick={() => handlePollClick(poll.id)}
+            >
+              <Link href={`/polls/${poll.id}`}>
+                <div>{poll.question}</div>
+              </Link>
+            </li>
+          ))}
+        </ul>
 
-      {/* Button for user management */}
+             {/* Button for user management */}
       <button
         className="bg-blue-500 text-white py-2 px-4 rounded manage-users-button"
         onClick={handleUserManagementClick}
@@ -72,36 +75,37 @@ const AdminPage = () => {
         Manage Users
       </button>
 
-      {/* List of registered users */}
-      {showUserList && (
-        <>
-          <h2 className="text-2xl font-semibold mb-2 mt-8">Registered Users</h2>
-          <ul className="mb-4">
-            {users.map((user) => (
-              <li key={user.id} className="flex items-center justify-between">
-                <div>{user.name}</div>
-                <div>
-                  <button
-                    className="text-red-500 mr-2 remove-button"
-                    onClick={() => handleRemoveUser(user.id)}
-                  >
-                    Remove
-                  </button>
-                  <button
-                    className={`${
-                      user.canCreatePoll ? 'text-green-500' : 'text-gray-500'
-                    } disable-button`}
-                    onClick={() => handleTogglePollCreation(user.id)}
-                  >
-                    {user.canCreatePoll ? 'Disable Poll Creation' : 'Enable Poll Creation'}
-                  </button>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </>
-      )}
-    </div>
+        {/* List of registered users */}
+        {showUserList && (
+          <>
+            <h2 className="text-2xl font-semibold mb-2 mt-8">Registered Users</h2>
+            <ul className="mb-4">
+              {users.map((user) => (
+                <li key={user.id} className="flex items-center justify-between">
+                  <div>{user.name}</div>
+                  <div>
+                    <button
+                      className="text-red-500 mr-2 remove-button"
+                      onClick={() => handleRemoveUser(user.id)}
+                    >
+                      Remove
+                    </button>
+                    <button
+                      className={`${
+                        user.canCreatePoll ? 'text-green-500' : 'text-gray-500'
+                      } disable-button`}
+                      onClick={() => handleTogglePollCreation(user.id)}
+                    >
+                      {user.canCreatePoll ? 'Disable Poll Creation' : 'Enable Poll Creation'}
+                    </button>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
+      </div>
+    </Layout>
   );
 };
 

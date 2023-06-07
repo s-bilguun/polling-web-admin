@@ -2,11 +2,13 @@ import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { Bar } from 'react-chartjs-2';
 import { BarController, BarElement, LinearScale, CategoryScale, Chart } from 'chart.js';
+import Layout from '../Layout';
+import Header from '../Header';
 
 // Register the LinearScale with Chart.js
 Chart.register(BarController, BarElement, LinearScale, CategoryScale);
 
-const PollPage = () => {
+const PollPage = ({ onUserManagementClick }) => {
   const router = useRouter();
   const { pollid } = router.query;
 
@@ -83,31 +85,34 @@ const PollPage = () => {
   }, []);
 
   return (
-    <div>
-      <h1>Poll Details</h1>
-      <h2>Question: {poll.question}</h2>
-      <p>Start Date: {poll.startDate}</p>
-      <p>Expire Date: {poll.expireDate}</p>
-      <p>Creator: {poll.userName}</p>
-
-      {/* Render poll options with vote counts */}
-      <ul>
-        {poll.options.map((option) => (
-          <li key={option.id}>
-            Option: {option.text}, Votes: {option.votes}
-          </li>
-        ))}
-      </ul>
-
-      {/* Chart for displaying the poll results */}
+    <Layout onUserManagementClick={onUserManagementClick}>
+      
       <div>
-        <h3>Poll Results</h3>
-        <Bar data={chartData} options={chartOptions} />
-      </div>
+        <h1>Poll Details</h1>
+        <h2>Question: {poll.question}</h2>
+        <p>Start Date: {poll.startDate}</p>
+        <p>Expire Date: {poll.expireDate}</p>
+        <p>Creator: {poll.userName}</p>
 
-      {/* Button for deleting the poll */}
-      <button onClick={handleDelete}>Delete Poll</button>
-    </div>
+        {/* Render poll options with vote counts */}
+        <ul>
+          {poll.options.map((option) => (
+            <li key={option.id}>
+              Option: {option.text}, Votes: {option.votes}
+            </li>
+          ))}
+        </ul>
+
+        {/* Chart for displaying the poll results */}
+        <div>
+          <h3>Poll Results</h3>
+          <Bar data={chartData} options={chartOptions} />
+        </div>
+
+        {/* Button for deleting the poll */}
+        <button onClick={handleDelete}>Delete Poll</button>
+      </div>
+    </Layout>
   );
 };
 
