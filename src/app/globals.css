@@ -1,11 +1,9 @@
-/* admin-page.css */
 :root {
   --foreground-color: #000000;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
 }
 
-/* Set the text color for the specific page */
 body.page-polls-details {
   color: var(--foreground-color);
 }
@@ -13,22 +11,25 @@ body.page-polls-details {
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-color: #ffffff;
-    --background-start-rgb: 43, 48, 70; /* Dark blue */
-    --background-end-rgb: 47, 54, 150; /* Lighter blue */
+    --background-start-rgb: 43, 48, 70;
+    --background-end-rgb: 47, 54, 150;
   }
 }
 
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(to bottom, transparent, rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
-  min-height: 100vh; /* Set a minimum height for the body */
+  min-height: 100vh;
   padding: 0;
   margin: 0;
   display: flex;
-  flex-direction: column; /* Stack the elements vertically */
+  flex-direction: column;
 }
 
 .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 60vw;
   max-width: 1200px;
   margin: 0 auto;
@@ -41,6 +42,18 @@ body {
   position: relative;
 }
 
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.form-group {
+  width: 100%;
+  max-width: 400px;
+}
+
 .manage-users-button {
   position: absolute;
   top: 0;
@@ -49,9 +62,8 @@ body {
   margin-right: 2rem;
 }
 
-
 header {
-  background-color: rgb(216, 208, 208); /* White background */
+  background-color: rgb(216, 208, 208);
   padding: 1rem;
   margin-bottom: 3%;
 }
@@ -66,6 +78,7 @@ header {
 
 .header-item {
   margin-right: 50px;
+  margin-left: 50px;
 }
 
 .add-users-button {
@@ -81,15 +94,30 @@ header {
   cursor: pointer;
 }
 
+.text-input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid gray;
+  border-radius: 4px;
+}
+
+.add-user-submit {
+  background-color: blue;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+}
 
 @media (prefers-color-scheme: dark) {
   header {
-    background-color: rgb(41, 9, 98); /* White background */
+    background-color: rgb(37, 14, 77);
     padding: 1rem;
+    margin-bottom: 3%;
   }
 
   header ul li {
-    color:#ffffff;
+    color: #ffffff;
   }
 }
 
@@ -99,10 +127,9 @@ header h1 {
 }
 
 .container > main {
-  flex-grow: 1; /* Allow the main content to grow and take up remaining space */
+  flex-grow: 1;
 }
 
-/* New styles for buttons */
 .container ul li {
   position: relative;
 }
@@ -110,7 +137,7 @@ header h1 {
 .container ul li .remove-button {
   position: absolute;
   top: 0;
-  right: 30%; /* Adjust this value as needed */
+  right: 30%;
 }
 
 .container ul li .disable-button {
@@ -119,9 +146,11 @@ header h1 {
   right: 0;
 }
 
-
 @media (prefers-color-scheme: dark) {
   .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 60vw;
     max-width: 1200px;
     margin: 0 auto;
@@ -164,7 +193,7 @@ header h1 {
 }
 
 .container li:hover {
-  color: #a8c5ff; /* Light blue */
+  color: #a8c5ff;
 }
 
 .container ul.mb-4 li {
@@ -181,31 +210,28 @@ header h1 {
 }
 
 .container ul li:nth-child(odd) {
-  color: #000000; /* Gray */
+  color: #000000;
 }
 
 .container ul li:nth-child(even) {
-  color: #1b4aa1; /* Light gray */
+  color: #1b4aa1;
 }
-
-
 
 @media (prefers-color-scheme: dark) {
   .container ul li:nth-child(odd) {
-    color: #ffffff; /* Gray */
+    color: #ffffff;
   }
-  
+
   .container ul li:nth-child(even) {
-    color: #ffffffc2; /* Light gray */
+    color: #ffffffc2;
   }
 
   .container div.chartjs-render-monitor {
-    color: #ffffff; /* White */
+    color: #ffffff;
   }
 
-  .container ul li a {            /* poll names, list */
+  .container ul li a {
     color: #ffffff;
     text-decoration: none;
   }
 }
-

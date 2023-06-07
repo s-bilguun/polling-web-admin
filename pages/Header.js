@@ -13,7 +13,9 @@ const Header = ({ onUserManagementClick }) => {
             Poll count:
           </li>
           <li className="header-item">
-            <button className="add-users-button">Add User</button>
+            <Link href="/AddUser">
+              <button className="add-users-button">Add User</button>
+            </Link>
           </li>
         </ul>
       </nav>
