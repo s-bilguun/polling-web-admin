@@ -135,15 +135,12 @@ header h1 {
 }
 
 .container ul li .remove-button {
-  position: absolute;
-  top: 0;
-  right: 30%;
+  margin-right: 50px;
+
 }
 
 .container ul li .disable-button {
-  position: absolute;
-  top: 0;
-  right: 0;
+
 }
 
 @media (prefers-color-scheme: dark) {
@@ -161,14 +158,11 @@ header h1 {
     box-sizing: border-box;
     color: white;
     position: relative;
+   
   }
 }
 
-.container ul li .remove-button:hover,
-.container ul li .disable-button:hover {
-  cursor: pointer;
-  opacity: 0.8;
-}
+
 
 .container h1 {
   font-size: 2.5rem;
