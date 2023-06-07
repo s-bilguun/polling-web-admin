@@ -4,6 +4,7 @@ import { Bar } from 'react-chartjs-2';
 import { BarController, BarElement, LinearScale, CategoryScale, Chart } from 'chart.js';
 import Layout from '../Layout';
 import Header from '../Header';
+import withAuth from './withAuth';
 
 // Register the LinearScale with Chart.js
 Chart.register(BarController, BarElement, LinearScale, CategoryScale);
@@ -116,4 +117,4 @@ const PollPage = ({ onUserManagementClick }) => {
   );
 };
 
-export default PollPage;
+export default withAuth(PollPage);

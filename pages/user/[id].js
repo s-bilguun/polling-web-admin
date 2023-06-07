@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import UserDetails from '../UserDetails';
+import withAuth from './withAuth';
 
 const UserDetailsPage = () => {
   const router = useRouter();
@@ -8,4 +9,4 @@ const UserDetailsPage = () => {
   return <UserDetails id={id} />;
 };
 
-export default UserDetailsPage;
+export default withAuth(UserDetailsPage);

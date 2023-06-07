@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from './Header';
 import '../src/app/globals.css'; // Import your global styles if needed
+import withAuth from './withAuth';
 
 const AddUser = () => {
   return (
@@ -52,7 +53,7 @@ const AddUser = () => {
     placeholder="Birthday"
   />
 </div>
-          <div className="form-group">
+          {/* <div className="form-group">
             <label htmlFor="profilePicture">Profile Picture</label>
             <input
               className="text-input"
@@ -60,7 +61,7 @@ const AddUser = () => {
               type="file"
               accept="image/*"
             />
-          </div>
+          </div> */}
           <button className="add-user-submit" type="submit">
             Add User
           </button>
@@ -70,4 +71,4 @@ const AddUser = () => {
   );
 };
 
-export default AddUser;
+export default withAuth(AddUser);

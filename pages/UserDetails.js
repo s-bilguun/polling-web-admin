@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Layout from './Layout';
+import withAuth from './withAuth';
 
 const UserDetails = ({ id }) => {
   // Replace with your user data logic
@@ -101,4 +102,4 @@ const UserDetails = ({ id }) => {
   );
 };
 
-export default UserDetails;
+export default withAuth(UserDetails);

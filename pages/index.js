@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import '../src/app/globals.css';
-import UserDetails from './UserDetails';
 import Layout from './Layout';
+import withAuth from './withAuth';
 
 const AdminPage = () => {
   const polls = [
@@ -119,4 +119,4 @@ const AdminPage = () => {
   );
 };
 
-export default AdminPage;
+export default withAuth(AdminPage);
