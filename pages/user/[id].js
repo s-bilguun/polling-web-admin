@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import UserDetails from '../UserDetails';
-import withAuth from './withAuth';
+import withAuth from './../withAuth';
 
 const UserDetailsPage = () => {
   const router = useRouter();
