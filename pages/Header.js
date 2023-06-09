@@ -13,10 +13,16 @@ const Header = () => {
     <header>
       <nav>
         <ul className="header-list">
+          <Link href="/">
+          <div className="logo">
+          <img src="/logo.png" alt="Logo" />
+          </div>
+   
+      </Link>
           <li className="header-item">
-            <button className="header-title" onClick={handleTitleClick}>
-             Home page
-            </button>
+            <Link href="/register_user">
+              <button className="add-users-button">Add User</button>
+            </Link>
           </li>
           <li className="header-item">
             User count:
@@ -24,11 +30,7 @@ const Header = () => {
           <li className="header-item">
             Poll count:
           </li>
-          <li className="header-item">
-            <Link href="/register_user">
-              <button className="add-users-button">Add User</button>
-            </Link>
-          </li>
+         
         </ul>
       </nav>
     </header>
