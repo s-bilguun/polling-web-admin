@@ -7,7 +7,7 @@ const AddUser = () => {
   return (
     <div>
       <Header />
-      <div className="container mx-auto">
+      <div className="container">
         <h1 className="add-user">Add User</h1>
         <form className="form">
           <div className="form-group">

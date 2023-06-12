@@ -68,28 +68,43 @@ const PollPage = ({ onUserManagementClick }) => {
     type: 'bar',
     scales: {
       x: {
-        type: 'category',
-        labels: poll.options.map((option) => option.text),
+        grid: {
+          display: false,
+        },
         ticks: {
-          color: '#2986cc', // Set the x-axis label color based on the color scheme
+          color: '#FFFFFF', // Set the x-axis tick color to white
+          font: {
+            weight: 'bold',
+          },
         },
       },
       y: {
         beginAtZero: true,
         ticks: {
           stepSize: 1,
-          color: '#2986cc', // Set the y-axis label color based on the color scheme
+          color: '#FFFFFF', // Set the y-axis tick color to white
+          font: {
+            weight: 'bold',
+          },
+        },
+        grid: {
+          color: 'rgba(255, 255, 255, 0.1)', // Set the y-axis grid color to a light gray
         },
       },
     },
     plugins: {
       legend: {
         labels: {
-          color: '#2986cc', // Set the legend label color to black
+          color: '#FFFFFF', // Set the legend label color to white
+          font: {
+            weight: 'bold',
+          },
         },
       },
     },
+ 
   };
+  
 
   useEffect(() => {
     // Add the page-specific class to the body element
