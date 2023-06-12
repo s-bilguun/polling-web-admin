@@ -35,12 +35,22 @@ body {
   margin: 0 auto;
   padding: 2rem;
   border-radius: 0.25rem;
-  background-color: rgb(175, 215, 227);
+  background-image: linear-gradient(to right, rgb(181, 206, 227), rgb(140, 173, 213)); /* Adjust the gradient colors */
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
   color: rgb(0, 0, 0);
   position: relative; /* Added for positioning */
 }
+
+@media (prefers-color-scheme: dark) {
+  .container {
+    background-image: linear-gradient(to right, rgb(41, 41, 104), rgb(29, 29, 153)); /* Adjust the gradient colors for dark mode */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    color: white;
+  }
+}
+
+
 
 .flex {
   display: flex;
@@ -55,13 +65,50 @@ body {
 }
 
 .poll-list-container {
-  width: 60%;
+  
+  flex: 1;
+  margin-right: 20px;
 }
 
 .user-list-container {
-  width: 40%;
-  margin-left: 2rem;
+  flex: 1;
+ 
+  margin-left: 20px; /* Add some margin to create space between the user list and poll list */
 }
+
+.user-list-container ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.user-list-container li {
+  display: flex;
+  align-items: flex-start; /* Align items to the left */
+  margin-bottom: 8px; /* Add margin at the bottom of each user */
+}
+
+.username {
+  display: flex;
+  flex-direction: column;
+}
+
+.username span {
+  margin-bottom: 4px; /* Add spacing between username and email */
+}
+
+.user-email {
+  font-size: 12px;
+  color: rgb(62, 27, 149);
+}
+
+@media (prefers-color-scheme: dark) {
+.user-email {
+  color: rgb(166, 164, 164);
+}
+  
+}
+
 
 @media (max-width: 768px) {
   .container {
@@ -187,13 +234,7 @@ header h1 {
 .container ul li .disable-button {
 }
 
-@media (prefers-color-scheme: dark) {
-  .container {
-    background-color: rgb(40, 40, 117);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    color: white;
-  }
-}
+
 
 .container h1 {
   font-size: 2.5rem;
@@ -248,7 +289,7 @@ header h1 {
   }
 
   .container ul li:nth-child(even) {
-    color: #ffffffc2;
+    color: #c7ebf5c2;
   }
 
   .container div.chartjs-render-monitor {
@@ -335,11 +376,9 @@ header h1 {
     color: white;
   }
 }
-
-/* poll list on index styling*/
+/* poll list on index styling */
 .poll-list {
   display: grid;
-
   width: 100%; /* Make the poll list wider */
 }
 
@@ -349,14 +388,12 @@ header h1 {
 }
 
 .poll-list .poll-item {
-  flex-grow: 1;
-  flex-basis: autopx;
-  width: 500px; /* Adjust the initial width as needed */
   display: flex;
   align-items: flex-start;
   padding: 16px;
   border: 1px solid #000000; /* Border for each poll item */
   margin-bottom: 16px; /* Spacing between poll items */
+  width: 600px; /* Adjust the initial width as needed */
 }
 
 @media (max-width: 1200px) {
@@ -394,15 +431,21 @@ header h1 {
   margin-bottom: 8px; /* Spacing between username and poll title */
 }
 
-.poll-list .poll-title-link a{
+.poll-list .poll-title-link a {
   font-size: 25px;
   font-weight: bold;
   color: black;
   text-decoration: none;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  word-break: break-word; /* Break long words to prevent horizontal overflow */
+  max-height: 3.6em; /* Limit the height to show 2 lines of text */
 }
 
 @media (prefers-color-scheme: dark) {
-  .poll-list .poll-title-link a{
+  .poll-list .poll-title-link a {
     color: white;
   }
 }
@@ -413,6 +456,7 @@ header h1 {
   display: flex;
   flex-direction: column;
   align-items: flex-end; /* Align start and end datetimes to the right */
+  margin-left: auto; /* Move datetime to the right side */
 }
 
 @media (prefers-color-scheme: dark) {

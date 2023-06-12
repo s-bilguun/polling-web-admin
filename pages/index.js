@@ -10,12 +10,26 @@ const AdminPage = () => {
     {
       id: 1,
       username: 'User 1',
-      title: 'What is your favorite color?',
+      title: 'What is your favorite color teteststteteststteteststteteststteteststteteststteteststtetestst?',
       startDatetime: '2023-06-01 10:00:00',
       endDatetime: '2023-06-01 12:00:00',
     },
     {
       id: 2,
+      username: 'User 2',
+      title: 'How often do you exercise?',
+      startDatetime: '2023-06-02 15:00:00',
+      endDatetime: '2023-06-02 16:30:00',
+    },
+    {
+      id: 3,
+      username: 'User 2',
+      title: 'How often do you exercise?',
+      startDatetime: '2023-06-02 15:00:00',
+      endDatetime: '2023-06-02 16:30:00',
+    },
+    {
+      id: 4,
       username: 'User 2',
       title: 'How often do you exercise?',
       startDatetime: '2023-06-02 15:00:00',
@@ -27,9 +41,9 @@ const AdminPage = () => {
 
   // State to store the list of registered users
   const [users, setUsers] = useState([
-    { id: 1, name: 'User 1', canCreatePoll: true },
-    { id: 2, name: 'User 2', canCreatePoll: false },
-    { id: 3, name: 'User 3', canCreatePoll: false },
+    { id: 1, name: 'UsernameeUsernameeee', email: 'verylongemailfortestingpurposes@gmail.com' },
+    { id: 2, name: 'User 2', email: 'test' },
+    { id: 3, name: 'User 3', email: 'test@gmail.com' },
     // Add more user objects as needed
   ]);
 
@@ -96,40 +110,25 @@ const AdminPage = () => {
             </div>
           </div>
           {showUserList && (
-            <div className="user-list-container w-1/2 pl-4">
-              <div className="mb-8">
-                <h2 className="text-2xl font-semibold mb-2">Registered Users</h2>
-                <ul>
-                  {users.map((user) => (
-                    <li key={user.id} className="flex items-center justify-between">
-                      <div
-                        className="text-blue-500 cursor-pointer"
-                        onClick={() => handleUserClick(user.id)}
-                      >
-                        {user.name}
-                      </div>
-                      <div>
-                        <button
-                          className="text-red-500 mr-2 remove-button"
-                          onClick={() => handleRemoveUser(user.id)}
-                        >
-                          Remove
-                        </button>
-                        <button
-                          className={`${
-                            user.canCreatePoll ? 'text-green-500' : 'text-gray-500'
-                          } disable-button`}
-                          onClick={() => handleTogglePollCreation(user.id)}
-                        >
-                          {user.canCreatePoll ? 'Disable Poll Creation' : 'Enable Poll Creation'}
-                        </button>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+  <div className="user-list-container w-1/2 pl-4">
+    <div className="mb-8">
+      <h2 className="text-2xl font-semibold mb-2">Registered Users</h2>
+      <ul>
+        {users.map((user) => (
+          <li key={user.id}>
+            <div className="username" onClick={() => handleUserClick(user.id)}>
+              <span>{user.name}</span>
+              <span className="user-email">{user.email}</span>
             </div>
-          )}
+            {/* ... */}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+)}
+
+
         </div>
       </div>
     </Layout>
