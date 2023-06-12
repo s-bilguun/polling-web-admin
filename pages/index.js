@@ -37,6 +37,27 @@ const AdminPage = () => {
     },
   ];
 
+  // const [polls, setPolls] = useState([]);
+
+  // useEffect(() => {
+  //   const fetchPolls = async () => {
+  //     try {
+  //       const response = await fetch('/api/polls'); // Adjust the API endpoint URL according to your backend
+
+  //       if (response.ok) {
+  //         const data = await response.json();
+  //         setPolls(data);
+  //       } else {
+  //         console.error('Failed to fetch polls');
+  //       }
+  //     } catch (error) {
+  //       console.error('Error fetching polls:', error);
+  //     }
+  //   };
+
+  //   fetchPolls();
+  // }, []);
+
   const router = useRouter();
 
   // State to store the list of registered users
@@ -46,6 +67,24 @@ const AdminPage = () => {
     { id: 3, name: 'User 3', email: 'test@gmail.com' },
     // Add more user objects as needed
   ]);
+
+  // const [users, setUsers] = useState([]);
+  // const fetchUsers = async () => {
+  //   try {
+  //     const response = await fetch('/api/users'); // Adjust the API endpoint URL according to your backend
+
+  //     if (response.ok) {
+  //       const data = await response.json();
+  //       setUsers(data);
+  //     } else {
+  //       console.error('Failed to fetch users');
+  //     }
+  //   } catch (error) {
+  //     console.error('Error fetching users:', error);
+  //   }
+  // };
+
+  // fetchUsers();
 
   const handlePollClick = (id) => {
     router.push(`/poll/${id}`);
@@ -80,9 +119,9 @@ const AdminPage = () => {
   return (
     <Layout onUserManagementClick={handleUserManagementClick}>
       <div className="container mx-auto p-4">
-        <h1 className="text-3xl font-bold mb-4">Admin</h1>
+        <h1 className="text-3xl font-bold mb-4">Admin dashboard</h1>
         <button
-          className="bg-blue-500 text-white py-2 px-4 rounded manage-users-button"
+          className="manage-users-button"
           onClick={handleUserManagementClick}
         >
           Manage Users

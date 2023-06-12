@@ -39,103 +39,103 @@ const UserDetails = ({ id }) => {
 
   return (
     <Layout>
-      <div className="container mx-auto p-4">
-        <h1 className="add-user">User Details</h1>
+<div className="container">
+  <h1 className="add-user">User Details</h1>
 
-        <div className="user-info">
-          <div className="info-group">
-            <label>Email:</label>
-            {editMode ? (
-              <input
-                className="text-input"
-                type="text"
-                name="email"
-                value={user.email}
-                onChange={handleInputChange}
-              />
-            ) : (
-              <div>{user.email}</div>
-            )}
-          </div>
+  <div className="user-info">
+    <div className="info-group">
+      <label>Email:</label>
+      {editMode ? (
+        <input
+          className="text-input"
+          type="text"
+          name="email"
+          value={user.email}
+          onChange={handleInputChange}
+        />
+      ) : (
+        <div>{user.email}</div>
+      )}
+    </div>
 
-          <div className="info-group">
-            <label>Username:</label>
-            {editMode ? (
-              <input
-                className="text-input"
-                type="text"
-                name="username"
-                value={user.username}
-                onChange={handleInputChange}
-              />
-            ) : (
-              <div>{user.username}</div>
-            )}
-          </div>
+    <div className="info-group">
+      <label>Username:</label>
+      {editMode ? (
+        <input
+          className="text-input"
+          type="text"
+          name="username"
+          value={user.username}
+          onChange={handleInputChange}
+        />
+      ) : (
+        <div>{user.username}</div>
+      )}
+    </div>
 
-          <div className="info-group">
-            <label>Password:</label>
-            {editMode ? (
-              <input
-                className="text-input"
-                type="text"
-                name="password"
-                value={user.password}
-                onChange={handleInputChange}
-              />
-            ) : (
-              <div>{user.password}</div>
-            )}
-          </div>
+    <div className="info-group">
+      <label>Password:</label>
+      {editMode ? (
+        <input
+          className="text-input"
+          type="text"
+          name="password"
+          value={user.password}
+          onChange={handleInputChange}
+        />
+      ) : (
+        <div>{user.password}</div>
+      )}
+    </div>
 
-          <div className="info-group">
-            <label>Role:</label>
-            {editMode ? (
-              <select
-                className="text-input"
-                name="role"
-                value={user.role}
-                onChange={handleInputChange}
-              >
-                <option value="admin">Admin</option>
-                <option value="user">User</option>
-              </select>
-            ) : (
-              <div>{user.role}</div>
-            )}
-          </div>
+    <div className="info-group">
+      <label>Role:</label>
+      {editMode ? (
+        <select
+          className="text-input"
+          name="role"
+          value={user.role}
+          onChange={handleInputChange}
+        >
+          <option value="admin">Admin</option>
+          <option value="user">User</option>
+        </select>
+      ) : (
+        <div>{user.role}</div>
+      )}
+    </div>
 
-          <div className="info-group">
-            <label>Birthday:</label>
-            {editMode ? (
-              <input
-                className="text-input"
-                type="text"
-                name="birthday"
-                value={user.birthday}
-                onChange={handleInputChange}
-              />
-            ) : (
-              <div>{user.birthday}</div>
-            )}
-          </div>
-        </div>
+    <div className="info-group">
+      <label>Birthday:</label>
+      {editMode ? (
+        <input
+          className="text-input"
+          type="text"
+          name="birthday"
+          value={user.birthday}
+          onChange={handleInputChange}
+        />
+      ) : (
+        <div>{user.birthday}</div>
+      )}
+    </div>
+  </div>
 
-        {editMode ? (
-          <button className="add-user-submit" onClick={handleSaveChanges}>
-            Save Changes
-          </button>
-        ) : (
-          <>
-            <button className="edit-user" onClick={handleEditClick}>
-              Edit
-            </button>
-            <button className="delete-user" onClick={handleDeleteUser}>
-              Delete User
-            </button>
-          </>
-        )}
-      </div>
+  {editMode ? (
+    <button className="add-user-submit" onClick={handleSaveChanges}>
+      Save Changes
+    </button>
+  ) : (
+    <div>
+      <button className="edit-user" onClick={handleEditClick}>
+        Edit
+      </button>
+      <button className="delete-user" onClick={handleDeleteUser}>
+        Delete User
+      </button>
+    </div>
+  )}
+</div>
     </Layout>
   );
 };

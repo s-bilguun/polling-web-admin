@@ -6,6 +6,7 @@ const Layout = ({ children, onUserManagementClick }) => {
     <div>
       <Header onUserManagementClick={onUserManagementClick} />
       <main>{children}</main>
+      
     </div>
   );
 };

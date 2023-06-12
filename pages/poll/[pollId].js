@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { Bar } from 'react-chartjs-2';
 import { BarController, BarElement, LinearScale, CategoryScale, Chart } from 'chart.js';
@@ -8,24 +8,26 @@ import withAuth from './../withAuth';
 
 // Register the LinearScale with Chart.js
 Chart.register(BarController, BarElement, LinearScale, CategoryScale);
-
 const PollPage = ({ onUserManagementClick }) => {
   const router = useRouter();
   const { pollid } = router.query;
 
   // Fetch poll details based on pollid and populate the poll object
-  const poll = {
+  const [poll, setPoll] = useState({
     id: pollid,
     question: 'What is your favorite color?',
-    startDate: '2023-06-01',
-    expireDate: '2023-06-30',
+    startDate: '2023-06-01T00:00',
+    expireDate: '2023-06-30T23:59',
     userName: 'Bilguun',
     options: [
       { id: 1, text: 'Red', votes: 10 },
       { id: 2, text: 'Blue', votes: 15 },
       { id: 3, text: 'Green', votes: 8 },
     ],
-  };
+  });
+
+  // State to toggle edit mode
+  const [editMode, setEditMode] = useState(false);
 
   // Function to handle deletion of the poll
   const handleDelete = () => {
@@ -33,6 +35,20 @@ const PollPage = ({ onUserManagementClick }) => {
 
     // After deletion, navigate back to the admin page
     router.push('/');
+  };
+
+  // Function to handle editing of the poll
+  const handleEdit = () => {
+    // Enable edit mode
+    setEditMode(true);
+  };
+
+  // Function to handle updating the poll details
+  const handleUpdate = () => {
+    // Update the poll details logic
+
+    // Disable edit mode
+    setEditMode(false);
   };
 
   // Prepare the data for the chart
@@ -87,31 +103,63 @@ const PollPage = ({ onUserManagementClick }) => {
 
   return (
     <Layout onUserManagementClick={onUserManagementClick}>
-      
-      <div className='container'>
+      <div className="container">
         <h1>Poll Details</h1>
-        <h2>Question: {poll.question}</h2>
-        <p>Start Date: {poll.startDate}</p>
-        <p>Expire Date: {poll.expireDate}</p>
-        <p>Creator: {poll.userName}</p>
+        {editMode ? (
+          <div>
+            <label>
+              Question:
+              <input
+                type="text"
+                value={poll.question}
+                onChange={(e) => setPoll({ ...poll, question: e.target.value })}
+              />
+            </label>
+            <label>
+              Start Date:
+              <input
+                type="datetime-local"
+                value={poll.startDate}
+                onChange={(e) => setPoll({ ...poll, startDate: e.target.value })}
+              />
+            </label>
+            <label>
+              Expire Date:
+              <input
+                type="datetime-local"
+                value={poll.expireDate}
+                onChange={(e) => setPoll({ ...poll, expireDate: e.target.value })}
+              />
+            </label>
+            <button className="save-button" onClick={handleUpdate}>Save</button>
+          </div>
+        ) : (
+          <div>
+            <h2>Question: {poll.question}</h2>
+            <p>Start Date: {poll.startDate}</p>
+            <p>Expire Date: {poll.expireDate}</p>
+            <p>Creator: {poll.userName}</p>
+            {/* Render poll options with vote counts */}
+            <ul>
+              {poll.options.map((option) => (
+                <li key={option.id}>
+                  Option: {option.text}, Votes: {option.votes}
+                </li>
+              ))}
+            </ul>
+            {/* Chart for displaying the poll results */}
+            <div>
+              <h3>Poll Results</h3>
+              <Bar data={chartData} options={chartOptions} />
+            </div>
+            {/* Button for deleting the poll */}
+            <div className="button-container">
+  <button className="edit-poll" onClick={handleEdit}>Edit Poll</button>
+  <button className="delete-poll" onClick={handleDelete}>Delete Poll</button>
+</div>
 
-        {/* Render poll options with vote counts */}
-        <ul>
-          {poll.options.map((option) => (
-            <li key={option.id}>
-              Option: {option.text}, Votes: {option.votes}
-            </li>
-          ))}
-        </ul>
-
-        {/* Chart for displaying the poll results */}
-        <div>
-          <h3>Poll Results</h3>
-          <Bar data={chartData} options={chartOptions} />
-        </div>
-
-        {/* Button for deleting the poll */}
-        <button onClick={handleDelete}>Delete Poll</button>
+          </div>
+        )}
       </div>
     </Layout>
   );

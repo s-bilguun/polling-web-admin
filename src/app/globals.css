@@ -35,8 +35,9 @@ body {
   margin: 0 auto;
   padding: 2rem;
   border-radius: 0.25rem;
-  background-image: linear-gradient(to right, rgb(181, 206, 227), rgb(140, 173, 213)); /* Adjust the gradient colors */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-image: linear-gradient(to bottom, rgb(181, 206, 227), rgb(140, 173, 213)); /* Adjust the gradient colors */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4); /* Increased shadow intensity */
+  border: 2px solid rgba(0, 0, 0, 0.2); /* Increased border thickness */
   box-sizing: border-box;
   color: rgb(0, 0, 0);
   position: relative; /* Added for positioning */
@@ -44,11 +45,13 @@ body {
 
 @media (prefers-color-scheme: dark) {
   .container {
-    background-image: linear-gradient(to right, rgb(41, 41, 104), rgb(29, 29, 153)); /* Adjust the gradient colors for dark mode */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-image: linear-gradient(to bottom, rgb(41, 41, 104), rgb(37, 37, 185)); /* Adjust the gradient colors for dark mode */
     color: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6); /* Increased shadow intensity in dark mode */
+    border: 2px solid rgba(255, 255, 255, 0.2); /* Increased border thickness in dark mode */
   }
 }
+
 
 
 
@@ -134,9 +137,25 @@ body {
 }
 
 .manage-users-button {
-  align-self: flex-end; /* Updated to align to the end (right) */
+  align-self: flex-end;
   margin-right: 0;
+  padding: 10px 20px;
+  border: solid black 1px;
+  border-radius: 5px;
+  background-color: #6aaff9;
+  color: #000000;
+  font-size: 16px;
+  cursor: pointer;
 }
+
+@media (prefers-color-scheme: dark) {
+  .manage-users-button {
+    background-color: #071877;
+    border: solid white 1px;
+    color: white;
+  }
+}
+
 
 header {
   top: 0;
@@ -146,9 +165,24 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem;
+  padding: 1.25rem; /* Increased padding */
   margin-bottom: 3%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Added box-shadow */
 }
+
+@media (prefers-color-scheme: dark) {
+  header {
+    background: linear-gradient(to right, #1e1361, #2b3497);
+    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.2); /* Adjusted box-shadow for dark mode */
+    border-bottom: solid rgb(120, 126, 229) 1px;
+  }
+
+  header ul li {
+    color: #ffffff;
+  }
+}
+
+
 
 .logo img {
   filter: drop-shadow(0 0 1px #000000);
@@ -176,7 +210,7 @@ header {
 .add-users-button {
   background-color: #2be073;
   color: #000;
-  border: none;
+  border: 1px solid black;
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
@@ -189,6 +223,21 @@ header {
   }
 }
 
+.poll-create-button {
+  background-color: #6ae7d0;
+  color: #000;
+  border: 1px solid black;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+@media (prefers-color-scheme: dark) {
+  .poll-create-button {
+    background-color: #116fd3;
+    color: white;
+  }
+}
 .text-input {
   width: 100%;
   padding: 0.5rem;
@@ -204,15 +253,6 @@ header {
   border-radius: 4px;
 }
 
-@media (prefers-color-scheme: dark) {
-  header {
-    background: linear-gradient(to right, #1e1361, #2b3497);
-  }
-
-  header ul li {
-    color: #ffffff;
-  }
-}
 
 header h1 {
   font-size: 2rem;
@@ -317,7 +357,9 @@ header h1 {
   margin-top: 10%;
   padding: 5rem;
   box-sizing: border-box;
-  background-color: rgb(146, 241, 237);
+  background-color: rgb(166, 198, 240);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(0, 0, 0, 0.2); /* Added 1px border */
 }
 
 .login-container h1 {
@@ -361,6 +403,7 @@ header h1 {
 @media (prefers-color-scheme: dark) {
   .login-container {
     background-color: #053e7b;
+    border-color: rgba(255, 255, 255, 0.2); /* Adjusted border color for dark mode */
   }
 
   .login-container h1,
@@ -467,4 +510,275 @@ header h1 {
 
 .poll-list .poll-datetime p {
   margin: 4px 0; /* Spacing between start datetime and end datetime */
+}
+
+/* user details styling */
+.add-user {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.user-info {
+  padding: 20px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.info-group {
+  margin-bottom: 10px;
+}
+
+label {
+  font-weight: bold;
+}
+
+.text-input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.info-group div {
+  margin-top: 5px;
+}
+
+.add-user-submit,
+.edit-user,
+.delete-user {
+  background-color: #2196f3;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.edit-user {
+  background-color: #4caf50;
+}
+
+.delete-user {
+  background-color: #f44336;
+}
+
+
+/* Dark mode styles */
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #111;
+    color: #fff;
+  }
+
+
+  label {
+    color: #fff;
+  }
+
+  .text-input {
+    background-color: #333470;
+    color: #fff;
+  }
+
+  .add-user-submit {
+    background-color: #2196f3;
+  }
+
+  .edit-user {
+    background-color: #00bcd4;
+  }
+
+  .delete-user {
+    background-color: #f44336;
+  }
+}
+
+
+
+/*Poll creation in admin styling*/
+.container.add-poll {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 75vw;
+  max-width: 1000px; /* Adjusted max-width */
+  margin: 0 auto;
+  padding: 2rem;
+  border-radius: 0.25rem;
+  background-image: linear-gradient(to right, rgb(181, 206, 227), rgb(140, 173, 213));
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  color: rgb(0, 0, 0);
+  position: relative;
+}
+
+.container.add-poll h1 {
+  margin-bottom: 1rem;
+  font-size: 2rem;
+}
+
+.container.add-poll form {
+  width: 100%;
+  max-width: 400px; /* Adjusted max-width */
+}
+
+.container.add-poll label {
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.container.add-poll input[type="text"],
+.container.add-poll input[type="datetime-local"] {
+  width: 100%;
+  padding: 0.5rem; /* Adjusted padding */
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+  background-color: #f8f8f8; /* Added light mode background color */
+  color: #000; /* Added light mode text color */
+  margin-bottom: 0.5rem; /* Added margin-bottom */
+}
+
+.container.add-poll button {
+  width: fit-content; /* Adjusted width */
+  padding: 0.5rem 1rem; /* Adjusted padding */
+  margin-top: 1rem;
+  background-color: #2196f3;
+  color: #fff;
+  cursor: pointer;
+}
+
+.container.add-poll button:hover {
+  background-color: #0c7ed6;
+}
+
+/* Light mode colors */
+@media (prefers-color-scheme: light) {
+  .container.add-poll {
+    background-image: linear-gradient(to right, rgb(181, 206, 227), rgb(140, 173, 213));
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    color: rgb(0, 0, 0);
+  }
+
+  .container.add-poll input[type="text"],
+  .container.add-poll input[type="datetime-local"] {
+    background-color: #f8f8f8;
+    color: #000;
+  }
+
+  .container.add-poll button {
+    background-color: #2196f3;
+    color: #fff;
+  }
+
+  .container.add-poll button:hover {
+    background-color: #0c7ed6;
+  }
+}
+
+/* Dark mode colors */
+@media (prefers-color-scheme: dark) {
+  .container.add-poll {
+    background-image: linear-gradient(to right, rgb(41, 41, 104), rgb(29, 29, 153));
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    color: white;
+  }
+
+  .container.add-poll input[type="text"],
+  .container.add-poll input[type="datetime-local"] {
+    background-color: #000066; /* Dark blue background */
+    color: #fff; /* White text color */
+  }
+
+  .container.add-poll button {
+    background-color: #006699; /* Darker button color */
+    color: #fff;
+  }
+
+  .container.add-poll button:hover {
+    background-color: #005580; /* Darker hover color */
+  }
+}
+
+
+
+.container label {
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.container input[type="text"],
+.container input[type="datetime-local"] {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.container .save-button {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.container .edit-poll,
+.container .delete-poll {
+  margin-top: 1rem;
+  margin-right: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+@media (prefers-color-scheme: dark) {
+  .container input[type="text"],
+  .container input[type="datetime-local"] {
+    background-color: #333470;
+    color: #fff;
+    border-color: #ffffff;
+  }
+
+  .container .save-button {
+    background-color: #0c87e8;
+  }
+
+  .container .edit-poll,
+  .container .delete-poll {
+    background-color: #0d47a1;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .container input[type="text"],
+  .container input[type="datetime-local"] {
+    background-color: #f5f5f5;
+  }
+
+  .container .save-button {
+    background-color: #1976d2;
+  }
+
+  .container .edit-poll,
+  .container .delete-poll {
+    background-color: #1976d2;
+  }
+}
+
+.container .button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.container .button-container .edit-poll,
+.container .button-container .delete-poll {
+  margin: 0 0.5rem;
 }
