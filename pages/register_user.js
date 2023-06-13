@@ -2,8 +2,21 @@ import React from 'react';
 import Header from './Header';
 import '../src/app/globals.css'; // Import your global styles if needed
 import withAuth from './withAuth';
+import { useRouter } from 'next/router';
 
 const AddUser = () => {
+
+
+  const router = useRouter();
+
+  const handleAddUser = (e) => {
+    e.preventDefault();
+
+    // TODO: Perform any necessary logic for adding the user
+
+    // Navigate back to the index page
+    router.push('/');
+  };
   return (
     <div>
       <Header />
@@ -62,7 +75,7 @@ const AddUser = () => {
               accept="image/*"
             />
           </div> */}
-          <button className="add-user-submit" type="submit">
+          <button className="add-user-submit" onClick={handleAddUser}>
             Add User
           </button>
         </form>

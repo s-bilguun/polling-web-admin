@@ -59,7 +59,7 @@ const PollPage = ({ onUserManagementClick }) => {
       {
         label: 'Votes',
         data: poll.options.map((option) => option.votes),
-        backgroundColor: 'rgba(75, 132, 192, 0.6)',
+        backgroundColor: 'rgba(66, 165, 245, 0.6)',
       },
     ],
   };

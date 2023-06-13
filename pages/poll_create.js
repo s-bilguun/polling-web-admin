@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import Layout from './Layout';
 import withAuth from './withAuth';
+import { useRouter } from 'next/router';
+
 
 const AddPoll = () => {
   const [question, setQuestion] = useState('');
@@ -18,29 +20,27 @@ const AddPoll = () => {
     setChoices(updatedChoices);
   };
 
-  const handlePollSubmit = (e) => {
-    e.preventDefault();
+  const router = useRouter();
 
+  const handlePollSubmit = async (e) => {
+    e.preventDefault();
+  
     // Format the date and time strings
     const startDateTimeFormatted = `${startDateTime}:00`;
     const endDateTimeFormatted = `${endDateTime}:00`;
-
+  
     // Validate and submit the poll data to the backend
-    // TODO: backend connect
-    console.log('Poll submitted:', {
-      question,
-      startDateTime: startDateTimeFormatted,
-      endDateTime: endDateTimeFormatted,
-      choices,
-    });
-
+    // TODO: Connect to the backend and submit the data
+  
     // Reset the form
     setQuestion('');
     setStartDateTime('');
     setEndDateTime('');
     setChoices(['', '']);
+  
+    // Navigate back to the index page
+    router.push('/');
   };
-
   return (
     <Layout>
       <div className="container add-poll">
