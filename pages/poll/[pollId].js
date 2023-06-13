@@ -23,6 +23,7 @@ const PollPage = ({ onUserManagementClick }) => {
       { id: 1, text: 'Red', votes: 10 },
       { id: 2, text: 'Blue', votes: 15 },
       { id: 3, text: 'Green', votes: 8 },
+      { id: 4, text: 'Black', votes: 8 },
     ],
   });
 

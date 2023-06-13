@@ -69,14 +69,6 @@ body {
   }
 }
 
-.poll-list-container {
-  flex: 1 0 35%; /* Adjust the flex property to control the width */
-  width: 100%;
-  padding-right: 20px; /* Add spacing between poll list and user list */
-  box-sizing: border-box;
-  transition: flex 0.3s ease; /* Add a transition for smooth resizing */
-}
-
 .user-list-container {
   flex: 1;
   margin: 0 auto;
@@ -420,6 +412,16 @@ header h1 {
   }
 }
 /* poll list on index styling */
+
+.poll-list-container {
+  flex: 1 0 35%; /* Adjust the flex property to control the width */
+  width: 100%;
+  padding-right: 20px; /* Add spacing between poll list and user list */
+  box-sizing: border-box;
+  transition: flex 0.3s ease; /* Add a transition for smooth resizing */
+}
+
+
 .poll-list {
   display: grid;
   
@@ -765,3 +767,39 @@ label {
 .container .button-container .delete-poll {
   margin: 0 0.5rem;
 }
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.pagination-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  margin-right: 0.5rem;
+  border-radius: 0.25rem;
+  background-color: #f5f7fa;
+  color: #666666;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.pagination-button:hover {
+  background-color: #e2e8f0;
+}
+
+.pagination-button.active {
+  background-color: #4299e1;
+  color: #ffffff;
+}
+
+.pagination-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
