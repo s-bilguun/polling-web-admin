@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
 import Layout from './Layout';
 import withAuth from './withAuth';
+import { useRouter } from 'next/router';
 
 const UserDetails = ({ id }) => {
+
+  
+  const router = useRouter();
+  
   const [editMode, setEditMode] = useState(false); // State variable to track edit mode
 
   // Replace with your user data logic
@@ -35,6 +40,7 @@ const UserDetails = ({ id }) => {
   const handleDeleteUser = () => {
     // Logic to delete the user from the backend
     console.log('Deleting user:', user.id);
+    router.push('/');
   };
 
   return (
