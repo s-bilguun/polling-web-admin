@@ -1,132 +1,48 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useRouter } from 'next/router';
+import axios from 'axios';
+import { AuthContext } from './AuthContext';
 
 const LoginPage = () => {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const router = useRouter();
-
-  const handleLogin = (e) => {
+  const { login } = useContext(AuthContext); // Access the login function from the AuthContext
+  const handleLogin = async (e) => {
     e.preventDefault();
+  
+    try {
+      // Make an API request to the backend to authenticate the user
+      const response = await axios.post('http://localhost:8001/auth/login', {
+        email,
+        password,
+      });
+  
+      const { token} = response.data;
 
-    // Perform authentication logic
-    // Replace this with your actual authentication implementation
-    if (username === 'admin' && password === 'admin') {
+      // Call the login function from the AuthContext to set the user state
+      login(token ,email);
+  
       // Redirect to the home page or the desired route after successful login
       router.push('/');
-    } else {<div className="container">
-  <h1 className="add-user">User Details</h1>
-
-  <div className="user-info">
-    <div className="info-group">
-      <label>Email:</label>
-      {editMode ? (
-        <input
-          className="text-input"
-          type="text"
-          name="email"
-          value={user.email}
-          onChange={handleInputChange}
-        />
-      ) : (
-        <div>{user.email}</div>
-      )}
-    </div>
-
-    <div className="info-group">
-      <label>Username:</label>
-      {editMode ? (
-        <input
-          className="text-input"
-          type="text"
-          name="username"
-          value={user.username}
-          onChange={handleInputChange}
-        />
-      ) : (
-        <div>{user.username}</div>
-      )}
-    </div>
-
-    <div className="info-group">
-      <label>Password:</label>
-      {editMode ? (
-        <input
-          className="text-input"
-          type="text"
-          name="password"
-          value={user.password}
-          onChange={handleInputChange}
-        />
-      ) : (
-        <div>{user.password}</div>
-      )}
-    </div>
-
-    <div className="info-group">
-      <label>Role:</label>
-      {editMode ? (
-        <select
-          className="text-input"
-          name="role"
-          value={user.role}
-          onChange={handleInputChange}
-        >
-          <option value="admin">Admin</option>
-          <option value="user">User</option>
-        </select>
-      ) : (
-        <div>{user.role}</div>
-      )}
-    </div>
-
-    <div className="info-group">
-      <label>Birthday:</label>
-      {editMode ? (
-        <input
-          className="text-input"
-          type="text"
-          name="birthday"
-          value={user.birthday}
-          onChange={handleInputChange}
-        />
-      ) : (
-        <div>{user.birthday}</div>
-      )}
-    </div>
-  </div>
-
-  {editMode ? (
-    <button className="add-user-submit" onClick={handleSaveChanges}>
-      Save Changes
-    </button>
-  ) : (
-    <div>
-      <button className="edit-user" onClick={handleEditClick}>
-        Edit
-      </button>
-      <button className="delete-user" onClick={handleDeleteUser}>
-        Delete User
-      </button>
-    </div>
-  )}
-</div>
+    } catch (error) {
       // Show error message or perform other actions for failed login
       console.log('Invalid credentials');
     }
   };
+  
 
   return (
     <div className="login-container">
       <h1>Login</h1>
       <form onSubmit={handleLogin}>
         <div>
-          <label htmlFor="username">Username</label>
+          <label htmlFor="email">Email</label>
           <input
-            type="text"
-            id="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            type="email"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
         </div>
         <div>
