@@ -125,8 +125,8 @@ const handleDeleteUser = async () => {
                   value={user.role}
                   onChange={handleInputChange}
                 >
-                  <option value="admin">Admin</option>
-                  <option value="user">User</option>
+                  <option value="Admin">Admin</option>
+                  <option value="User">User</option>
                 </select>
               ) : (
                 <div>{user.role}</div>
