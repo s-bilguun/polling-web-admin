@@ -35,21 +35,34 @@ const UserDetails = ({ id }) => {
     }));
   };
 
-  const handleSaveChanges = () => {
-    // Logic to save the changes to the backend
-    console.log('Saving changes:', user);
-    setEditMode(false); // Exit edit mode after saving changes
+  const handleSaveChanges = async () => {
+    try {
+      console.log('Saving changes:', user);
+      await axios.put(`http://localhost:8001/user/updateUser/${user.id}`, {
+        email: user.email,
+        username: user.username,
+        birthdate: user.birthdate,
+        role: user.role,
+      });
+      setEditMode(false); // Exit edit mode after saving changes
+    } catch (error) {
+      console.error('Error updating user:', error);
+    }
   };
-
   const handleEditClick = () => {
     setEditMode(true); // Enter edit mode
   };
 
-  const handleDeleteUser = () => {
-    // Logic to delete the user from the backend
+const handleDeleteUser = async () => {
+  try {
     console.log('Deleting user:', user.id);
+    await axios.delete(`http://localhost:8001/user/deleteUser/${user.id}`);
     router.push('/');
-  };
+  } catch (error) {
+    console.error('Error deleting user:', error);
+  }
+};
+
 
   return (
     <Layout>
