@@ -11,6 +11,7 @@ const Header = () => {
 
   return (
     <header>
+    
       <nav>
         <ul className="header-list">
           <li>
@@ -20,12 +21,12 @@ const Header = () => {
               </div>
             </Link>
           </li>
-          <li className="header-item">
+          <li className="header-item header-item-spacer">
             <Link href="/register_user">
               <button className="add-users-button">Add User</button>
             </Link>
           </li>
-          <li className="header-item">
+          <li className="header-item header-item-spacer">
             <Link href="/poll_create">
               <button className="poll-create-button">Create Poll</button>
             </Link>
@@ -35,8 +36,10 @@ const Header = () => {
               <li className="header-item">
                 Logged in as: {user.email}
               </li>
-              <li className="header-item">
-                <button className='add-users-button' onClick={handleLogout}>Logout</button>
+              <li className="header-item logout-item">
+              <div className="logout-button-container">
+                <button className='logout-button' onClick={handleLogout}>Logout</button>
+                </div>
               </li>
             </React.Fragment>
           )}

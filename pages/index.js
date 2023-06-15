@@ -1,78 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import '../src/app/globals.css';
 import Layout from './Layout';
+import axios from 'axios';
 import withAuth from './withAuth';
+
 
 const AdminPage = () => {
   const pollsPerPage = 5; // Number of polls to display per page
   const usersPerPage = 10; // Number of users to display per page
-  const polls = [
-    {
-      id: 1,
-      username: 'User 1',
-      title: 'What is your favorite color teteststteteststteteststteteststteteststteteststteteststtetestst?',
-      startDatetime: '2023-06-01 10:00:00',
-      endDatetime: '2023-06-01 12:00:00',
-    },
-    {
-      id: 2,
-      username: 'User 2',
-      title: 'How often do you exercise?',
-      startDatetime: '2023-06-02 15:00:00',
-      endDatetime: '2023-06-02 16:30:00',
-    },
-    {
-      id: 3,
-      username: 'User 2',
-      title: 'How often do you exercise?',
-      startDatetime: '2023-06-02 15:00:00',
-      endDatetime: '2023-06-02 16:30:00',
-    },
-    {
-      id: 4,
-      username: 'User 2',
-      title: 'How often do you exercise?',
-      startDatetime: '2023-06-02 15:00:00',
-      endDatetime: '2023-06-02 16:30:00',
-    },
-    {
-      id: 5,
-      username: 'User 2',
-      title: 'How often do you exercise?',
-      startDatetime: '2023-06-02 15:00:00',
-      endDatetime: '2023-06-02 16:30:00',
-    },
-    {
-      id: 6 ,
-      username: 'User 2',
-      title: 'How often do you exercise?',
-      startDatetime: '2023-06-02 15:00:00',
-      endDatetime: '2023-06-02 16:30:00',
-    },
-  ];
+ 
+  const [polls, setPolls] = useState([]);
 
-  // const [polls, setPolls] = useState([]);
+  useEffect(() => {
+    const fetchPolls = async () => {
+      try {
+        const response = await fetch('http://localhost:8001/poll/list');
 
-  // useEffect(() => {
-  //   const fetchPolls = async () => {
-  //     try {
-  //       const response = await fetch('/api/polls'); // Adjust the API endpoint URL according to your backend
+        if (response.ok) {
+          const data = await response.json();
+          console.log(data);
+          setPolls(data);
+        } else {
+          console.error('Failed to fetch polls');
+        }
+      } catch (error) {
+        console.error('Error fetching polls:', error);
+      }
+    };
 
-  //       if (response.ok) {
-  //         const data = await response.json();
-  //         setPolls(data);
-  //       } else {
-  //         console.error('Failed to fetch polls');
-  //       }
-  //     } catch (error) {
-  //       console.error('Error fetching polls:', error);
-  //     }
-  //   };
-
-  //   fetchPolls();
-  // }, []);
+    fetchPolls();
+  }, []);
 
   const router = useRouter();
 
@@ -222,13 +181,13 @@ return (
                   <div className="poll-username">Username: {poll.username}</div>
                   <div className="poll-title-link">
                     <Link href={`/poll/${poll.id}`} passHref>
-                      {poll.title}
+                      {poll.question}
                     </Link>
                   </div>
                 </div>
                 <div className="poll-datetime">
-                  <p>Start Datetime: {poll.startDatetime}</p>
-                  <p>End Datetime: {poll.endDatetime}</p>
+                  <p>Start Datetime: {poll.startdate}</p>
+                  <p>End Datetime: {poll.expiredate}</p>
                 </div>
               </div>
             ))}
