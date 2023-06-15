@@ -8,8 +8,19 @@ const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
   const router = useRouter();
   const [user, setUser] = useState(null);
-  
 
+  const getUserData = () => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      return JSON.parse(storedUser);
+    }
+    return null;
+  };
+  
+  const storeUserData = (user) => {
+    localStorage.setItem('user', JSON.stringify(user));
+  };
+  
   const login = (token, email) => {
     // Set the token in a cookie
     Cookies.set('token', token);
@@ -22,6 +33,7 @@ const AuthProvider = ({ children }) => {
     Cookies.remove('token');
     // Reset the user state
     setUser(null);
+    storeUserData(user);
     // Redirect to the login page
     router.push('/login');
   };

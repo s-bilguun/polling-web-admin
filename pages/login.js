@@ -13,7 +13,7 @@ const LoginPage = () => {
   
     try {
       // Make an API request to the backend to authenticate the user
-      const response = await axios.post('http://localhost:8001/auth/login', {
+      const response = await axios.post('http://localhost:8001/auth/adminLogin', {
         email,
         password,
       });

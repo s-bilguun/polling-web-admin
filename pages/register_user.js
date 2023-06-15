@@ -1,21 +1,54 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import Header from './Header';
 import '../src/app/globals.css'; // Import your global styles if needed
 import withAuth from './withAuth';
 import { useRouter } from 'next/router';
+import axios from 'axios';
+import { AuthContext } from './AuthContext';
+
 
 const AddUser = () => {
+  const { user, setUser } = useContext(AuthContext);
 
 
   const router = useRouter();
 
-  const handleAddUser = (e) => {
+  const handleAddUser = async (e) => {
+
+
     e.preventDefault();
+    const username = document.getElementById('username').value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    const birthdate = document.getElementById('birthdate').value;
+    const role = document.getElementById('role').options[document.getElementById('role').selectedIndex].text;
 
-    // TODO: Perform any necessary logic for adding the user
+    try {
+      // Submit the poll data to the backend
+      const response = await axios.post(
+        'http://localhost:8001/user/regUser',
+        {
+          username: username,
+          email: email,
+          password: password,
+          birthdate: birthdate,
+          role: role,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
 
-    // Navigate back to the index page
-    router.push('/');
+      // Reset the form
+
+      // Go back to the index page or any other desired page
+      router.push('/');
+    } catch (error) {
+      console.log('Error submitting poll:', error);
+    }
+
   };
   return (
     <div>
@@ -53,28 +86,20 @@ const AddUser = () => {
           <div className="form-group">
             <label htmlFor="role">Role</label>
             <select className="text-input" id="role">
-              <option value="admin">User</option>
-              <option value="user">Admin</option>
+            onChange={(e) => setRole(e.target.value)}
+              <option value="Admin">User</option>
+              <option value="User">Admin</option>
             </select>
           </div>
           <div className="form-group">
-  <label htmlFor="birthday">Birthday</label>
-  <input
-    className="text-input"
-    id="birthday"
-    type="date"
-    placeholder="Birthday"
-  />
-</div>
-          {/* <div className="form-group">
-            <label htmlFor="profilePicture">Profile Picture</label>
+            <label htmlFor="birthdate">Birthday</label>
             <input
               className="text-input"
-              id="profilePicture"
-              type="file"
-              accept="image/*"
+              id="birthdate"
+              type="date"
+              placeholder="Birthdate"
             />
-          </div> */}
+          </div>
           <button className="add-user-submit" onClick={handleAddUser}>
             Add User
           </button>
