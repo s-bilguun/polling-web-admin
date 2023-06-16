@@ -496,7 +496,7 @@ header h1 {
   margin-bottom: 8px;
 }
 
-.poll-list .poll-title-link a {
+.poll-list .poll-title-link {
   font-size: 25px;
   font-weight: bold;
   color: black;
@@ -510,7 +510,7 @@ header h1 {
 }
 
 @media (prefers-color-scheme: dark) {
-  .poll-list .poll-title-link a {
+  .poll-list .poll-title-link {
     color: white;
   }
 }

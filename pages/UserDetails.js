@@ -5,6 +5,7 @@ import withAuth from './withAuth';
 import { useRouter } from 'next/router';
 
 const UserDetails = ({ id }) => {
+  console.log(id);
   const router = useRouter();
 
   const [editMode, setEditMode] = useState(false);

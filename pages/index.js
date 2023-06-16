@@ -14,6 +14,7 @@ const AdminPage = () => {
   const [polls, setPolls] = useState([]);
 
   useEffect(() => {
+    
     const fetchPolls = async () => {
       try {
         const response = await fetch('http://localhost:8001/poll/list');
@@ -57,28 +58,15 @@ const AdminPage = () => {
     fetchUsers();
   }, []);
 
-  const handlePollClick = (id) => {
-    router.push(`/poll/${id}`);
+  const handlePollClick = (poll) => {
+    console.log('Clicked on poll:', poll.id);
+    router.push({
+      pathname: '/poll/[id]',
+      query: { id: poll.id },
+    });
   };
-
   const handleUserClick = (id) => {
     router.push(`/user/${id}`);
-  };
-
-  const handleRemoveUser = (userId) => {
-    // Logic to remove the user from the backend
-    // After successful removal, update the users state
-    setUsers((prevUsers) => prevUsers.filter((user) => user.id !== userId));
-  };
-
-  const handleTogglePollCreation = (userId) => {
-    // Logic to toggle the user's poll creation access in the backend
-    // After successful toggle, update the users state
-    setUsers((prevUsers) =>
-      prevUsers.map((user) =>
-        user.id === userId ? { ...user, canCreatePoll: !user.canCreatePoll } : user
-      )
-    );
   };
 
   const [showUserList, setShowUserList] = useState(false);
@@ -154,11 +142,11 @@ const AdminPage = () => {
                 <div key={poll.id} className="poll-item">
                   <div className="poll-details">
                     <div className="poll-username">Username: {poll.username}</div>
-                    <div className="poll-title-link">
-                      <Link href={`/poll/${poll.id}`} passHref>
-                        {poll.question}
-                      </Link>
+                    <div className="poll-title-link" onClick={() =>
+                      handlePollClick(poll)}>
+                      {poll.question}
                     </div>
+
                   </div>
                   <div className="poll-datetime">
                     <p>Start Datetime: {poll.startdate}</p>
