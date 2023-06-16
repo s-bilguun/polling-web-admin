@@ -4,6 +4,7 @@ import Layout from '../Layout';
 import { AuthContext } from '../AuthContext';
 import axios from 'axios';
 import withAuth from '../withAuth';
+import moment from 'moment';
 
 const PollPage = () => {
   const router = useRouter();
@@ -12,17 +13,6 @@ const PollPage = () => {
   console.log('id passed from router.query', id);
   const [poll, setPoll] = useState();
 
-
-  
-  useEffect(() => {
-    // Add the page-specific class to the body element
-    document.body.classList.add('page-polls-details');
-
-    // Remove the page-specific class from the body element on unmount
-    return () => {
-      document.body.classList.remove('page-polls-details');
-    };
-  }, []);
 
   useEffect(() => {
     if (id) {
@@ -40,6 +30,8 @@ const PollPage = () => {
         });
     }
   }, [id]);
+  
+  
 
   // State to toggle edit mode
   const [editMode, setEditMode] = useState(false);
@@ -61,46 +53,38 @@ const PollPage = () => {
   const handleEdit = () => {
     setEditMode(true);
   };
-  // Function to handle updating the poll details
- // Function to handle updating the poll details
-const handleUpdate = () => {
-  if (!user) {
-    console.log("Error: You must be logged in to update a poll");
-    return;
-  }
-
-  if (id) {
-    axios
-      .put(`http://localhost:8001/poll/adminUpdatePoll/${id}`, {
-        question: poll.question,
-        startDate: poll.startDate,
-        expireDate: poll.expireDate,
-      })
-      .then((response) => {
-        console.log("Poll updated successfully");
-      })
-      .catch((error) => {
-        if (error.response) {
-          console.log(error.response.data.error);
-        } else {
-          console.log("Error:", error.message);
-        }
-      });
-  }
-
-  // Disable edit mode
-  setEditMode(false);
-};
-
-  useEffect(() => {
-    // Add the page-specific class to the body element
-    document.body.classList.add('page-polls-details');
-
-    // Remove the page-specific class from the body element on unmount
-    return () => {
-      document.body.classList.remove('page-polls-details');
-    };
-  }, []);
+  const handleUpdate = () => {
+    if (!user) {
+      console.log("Error: You must be logged in to update a poll");
+      return;
+    }
+  
+    if (id) {
+      // Convert the date strings to the expected format
+      const updatedPoll = {
+        ...poll,
+        startdate: moment(poll.startdate).format('YYYY-MM-DDTHH:mm:ss'),
+        expiredate: moment(poll.expiredate).format('YYYY-MM-DDTHH:mm:ss'),
+      };
+  
+      axios
+        .put(`http://localhost:8001/poll/adminUpdatePoll/${id}`, updatedPoll)
+        .then((response) => {
+          console.log("Poll updated successfully");
+        })
+        .catch((error) => {
+          if (error.response) {
+            console.log(error.response.data.error);
+          } else {
+            console.log("Error:", error.message);
+          }
+        });
+    }
+  
+    // Disable edit mode
+    setEditMode(false);
+  };
+  
 
   return (
     <Layout>
@@ -122,16 +106,16 @@ const handleUpdate = () => {
                   Start Date:
                   <input
                     type="datetime-local"
-                    value={poll.startDate}
-                    onChange={(e) => setPoll({ ...poll, startDate: e.target.value })}
+                    value={poll.startate}
+                    onChange={(e) => setPoll({ ...poll, startdate: e.target.value })}
                   />
                 </label>
                 <label>
                   Expire Date:
                   <input
                     type="datetime-local"
-                    value={poll.expireDate}
-                    onChange={(e) => setPoll({ ...poll, expireDate: e.target.value })}
+                    value={poll.expiredate}
+                    onChange={(e) => setPoll({ ...poll, expiredate: e.target.value })}
                   />
                 </label>
                 <button className="save-button" onClick={handleUpdate}>

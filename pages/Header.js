@@ -1,13 +1,31 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState  } from 'react';
 import Link from 'next/link';
 import { AuthContext } from './AuthContext';
 
 const Header = () => {
   const { user, logout } = useContext(AuthContext);
+  const [storedUser, setStoredUser] = useState(null);
 
   const handleLogout = () => {
     logout();
   };
+
+  
+  useEffect(() => {
+    // Store user information in local storage
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('user', JSON.stringify(user));
+    }
+  }, [user]);
+
+  useEffect(() => {
+    // Retrieve user information from local storage
+    if (typeof window !== 'undefined') {
+      const storedData = localStorage.getItem('user');
+      const parsedData = storedData ? JSON.parse(storedData) : null;
+      setStoredUser(parsedData);
+    }
+  }, [user]);
 
   return (
     <header>
@@ -31,10 +49,10 @@ const Header = () => {
               <button className="poll-create-button">Create Poll</button>
             </Link>
           </li>
-          {user && (
+          {storedUser && (
             <React.Fragment>
               <li className="header-item">
-                Logged in as: {user.email}
+                Logged in as: {storedUser.email}
               </li>
               <li className="header-item logout-item">
               <div className="logout-button-container">
