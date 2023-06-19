@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import axios from 'axios';
 import { AuthContext } from './AuthContext';
 
+
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -18,18 +19,24 @@ const LoginPage = () => {
         password,
       });
   
-      const { token} = response.data;
-
+      const { token } = response.data;
+  
       // Call the login function from the AuthContext to set the user state
-      login(token ,email);
+      login(token, email);
+      console.log({ token, email })
+  
+      // Store the token in localStorage
+      //    localStorage.setItem('user', JSON.stringify({ token, email }));
   
       // Redirect to the home page or the desired route after successful login
       router.push('/');
+
     } catch (error) {
       // Show error message or perform other actions for failed login
       console.log('Invalid credentials');
     }
   };
+  
   
 
   return (

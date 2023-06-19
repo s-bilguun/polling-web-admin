@@ -250,7 +250,7 @@ header {
 @media (prefers-color-scheme: dark) {
   .poll-create-button {
     background-color: #116fd3;
-    color: white;
+    color: white; 
   }
   .logout-button {
     background-color: #116fd3;

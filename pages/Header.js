@@ -1,35 +1,29 @@
-import React, { useContext, useEffect, useState  } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { AuthContext } from './AuthContext';
+import Cookies from 'js-cookie';
 
 const Header = () => {
   const { user, logout } = useContext(AuthContext);
-  const [storedUser, setStoredUser] = useState(null);
+  const [email, setEmail] = useState(null);
 
   const handleLogout = () => {
     logout();
   };
 
-  
   useEffect(() => {
-    // Store user information in local storage
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('user', JSON.stringify(user));
-    }
-  }, [user]);
-
-  useEffect(() => {
-    // Retrieve user information from local storage
-    if (typeof window !== 'undefined') {
-      const storedData = localStorage.getItem('user');
-      const parsedData = storedData ? JSON.parse(storedData) : null;
-      setStoredUser(parsedData);
+    if (user && user.email) {
+      setEmail(user.email);
+    } else if (typeof window !== 'undefined') {
+      const userEmail = Cookies.get('userEmail');
+      if (userEmail) {
+        setEmail(userEmail);
+      }
     }
   }, [user]);
 
   return (
     <header>
-    
       <nav>
         <ul className="header-list">
           <li>
@@ -49,14 +43,14 @@ const Header = () => {
               <button className="poll-create-button">Create Poll</button>
             </Link>
           </li>
-          {storedUser && (
+          {email && (
             <React.Fragment>
-              <li className="header-item">
-                Logged in as: {storedUser.email}
-              </li>
+              <li className="header-item">Logged in as: {email}</li>
               <li className="header-item logout-item">
-              <div className="logout-button-container">
-                <button className='logout-button' onClick={handleLogout}>Logout</button>
+                <div className="logout-button-container">
+                  <button className="logout-button" onClick={handleLogout}>
+                    Logout
+                  </button>
                 </div>
               </li>
             </React.Fragment>
