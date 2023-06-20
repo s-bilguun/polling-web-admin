@@ -6,6 +6,17 @@ import axios from 'axios';
 import withAuth from '../withAuth';
 import moment from 'moment';
 
+const formatDateTime = (dateTimeString) => {
+  const dateTime = new Date(dateTimeString);
+  const date = dateTime.toLocaleDateString('en-US');
+  const time = dateTime.toLocaleTimeString('en-US', {
+    hour12: false,
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+  return `${date} ${time}`;
+};
+
 const PollPage = () => {
   const router = useRouter();
   const { user } = useContext(AuthContext);
@@ -30,8 +41,8 @@ const PollPage = () => {
         });
     }
   }, [id]);
-  
-  
+
+
 
   // State to toggle edit mode
   const [editMode, setEditMode] = useState(false);
@@ -58,7 +69,7 @@ const PollPage = () => {
       console.log("Error: You must be logged in to update a poll");
       return;
     }
-  
+
     if (id) {
       // Convert the date strings to the expected format
       const updatedPoll = {
@@ -66,7 +77,7 @@ const PollPage = () => {
         startdate: moment(poll.startdate).format('YYYY-MM-DDTHH:mm:ss'),
         expiredate: moment(poll.expiredate).format('YYYY-MM-DDTHH:mm:ss'),
       };
-  
+
       axios
         .put(`http://localhost:8001/poll/adminUpdatePoll/${id}`, updatedPoll)
         .then((response) => {
@@ -80,11 +91,11 @@ const PollPage = () => {
           }
         });
     }
-  
+
     // Disable edit mode
     setEditMode(false);
   };
-  
+
 
   return (
     <Layout>
@@ -106,7 +117,7 @@ const PollPage = () => {
                   Start Date:
                   <input
                     type="datetime-local"
-                    value={poll.startate}
+                    value={editMode ? moment(poll.startdate).format('YYYY-MM-DDTHH:mm') : ''}
                     onChange={(e) => setPoll({ ...poll, startdate: e.target.value })}
                   />
                 </label>
@@ -114,7 +125,7 @@ const PollPage = () => {
                   Expire Date:
                   <input
                     type="datetime-local"
-                    value={poll.expiredate}
+                    value={editMode ? moment(poll.expiredate).format('YYYY-MM-DDTHH:mm') : ''}
                     onChange={(e) => setPoll({ ...poll, expiredate: e.target.value })}
                   />
                 </label>
@@ -125,8 +136,8 @@ const PollPage = () => {
             ) : (
               <div>
                 <h2>Question: {poll.question}</h2>
-                <p>Start Date: {poll.startdate}</p>
-                <p>Expire Date: {poll.expiredate}</p>
+                <p>Start Date: {formatDateTime(poll.startdate)}</p>
+                <p>Expire Date: {formatDateTime(poll.expiredate)}</p>
                 <p>Creator: {poll.username}</p>
                 <div className="button-container">
                   <button className="edit-poll" onClick={handleEdit}>
