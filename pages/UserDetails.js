@@ -4,6 +4,11 @@ import Layout from './Layout';
 import withAuth from './withAuth';
 import { useRouter } from 'next/router';
 
+const formatDate = (timestamp) => {
+  const date = new Date(timestamp);
+  return date.toLocaleDateString('en-US');
+};
+
 const UserDetails = ({ id }) => {
   console.log(id);
   const router = useRouter();
@@ -50,20 +55,20 @@ const UserDetails = ({ id }) => {
       console.error('Error updating user:', error);
     }
   };
+
   const handleEditClick = () => {
     setEditMode(true); // Enter edit mode
   };
 
-const handleDeleteUser = async () => {
-  try {
-    console.log('Deleting user:', user.id);
-    await axios.delete(`http://localhost:8001/user/deleteUser/${user.id}`);
-    router.push('/');
-  } catch (error) {
-    console.error('Error deleting user:', error);
-  }
-};
-
+  const handleDeleteUser = async () => {
+    try {
+      console.log('Deleting user:', user.id);
+      await axios.delete(`http://localhost:8001/user/deleteUser/${user.id}`);
+      router.push('/');
+    } catch (error) {
+      console.error('Error deleting user:', error);
+    }
+  };
 
   return (
     <Layout>
@@ -102,21 +107,6 @@ const handleDeleteUser = async () => {
               )}
             </div>
 
-            {/* <div className="info-group">
-              <label>Password:</label>
-              {editMode ? (
-                <input
-                  className="text-input"
-                  type="text"
-                  name="password"
-                  value={user.password}
-                  onChange={handleInputChange}
-                />
-              ) : (
-                <div>{user.password}</div>
-              )}
-            </div> */}
-
             <div className="info-group">
               <label>Role:</label>
               {editMode ? (
@@ -139,13 +129,13 @@ const handleDeleteUser = async () => {
               {editMode ? (
                 <input
                   className="text-input"
-                  type="text"
+                  type="date"
                   name="birthdate"
                   value={user.birthdate}
                   onChange={handleInputChange}
                 />
               ) : (
-                <div>{user.birthdate}</div>
+                <div>{formatDate(user.birthdate)}</div>
               )}
             </div>
           </div>
