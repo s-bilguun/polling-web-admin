@@ -114,11 +114,11 @@ const AddPoll = () => {
                 />
               </div>
             ))}
-            <button type="button" onClick={handleAddChoice}>
+            <button type="button" className="add-user-submit" onClick={handleAddChoice}>
               Add Choice
             </button>
           </label>
-          <button type="submit">Submit</button>
+          <button type="submit" className="add-user-submit">Submit</button>
         </form>
       </div>
     </Layout>

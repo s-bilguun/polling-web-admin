@@ -5,7 +5,8 @@ import '../src/app/globals.css';
 import Layout from './Layout';
 import axios from 'axios';
 import withAuth from './withAuth';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 const AdminPage = () => {
   const pollsPerPage = 5; // Number of polls to display per page
@@ -141,7 +142,7 @@ const AdminPage = () => {
               {currentPolls.map((poll) => (
                 <div key={poll.id} className="poll-item">
                   <div className="poll-details">
-                    <div className="poll-username">Username: {poll.username}</div>
+                    <div className="poll-username"><FontAwesomeIcon icon={faUser} /> {poll.username}</div>
                     <div className="poll-title-link" onClick={() =>
                       handlePollClick(poll)}>
                       {poll.question}

@@ -2,6 +2,10 @@ import React, { useContext, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { AuthContext } from './AuthContext';
 import Cookies from 'js-cookie';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 
 const Header = () => {
   const { user, logout } = useContext(AuthContext);
@@ -35,12 +39,12 @@ const Header = () => {
           </li>
           <li className="header-item header-item-spacer">
             <Link href="/register_user">
-              <button className="add-users-button">Add User</button>
+              <button className="add-users-button"><FontAwesomeIcon icon={faUserPlus} /> Add User</button>
             </Link>
           </li>
           <li className="header-item header-item-spacer">
             <Link href="/poll_create">
-              <button className="poll-create-button">Create Poll</button>
+              <button className="poll-create-button"><FontAwesomeIcon icon={faPlus} /> Create Poll</button>
             </Link>
           </li>
           {email && (
@@ -48,9 +52,7 @@ const Header = () => {
               <li className="header-item">Logged in as: {email}</li>
               <li className="header-item logout-item">
                 <div className="logout-button-container">
-                  <button className="logout-button" onClick={handleLogout}>
-                    Logout
-                  </button>
+                  <button className="logout-button" onClick={handleLogout}><FontAwesomeIcon icon={faRightFromBracket} /> Logout</button>
                 </div>
               </li>
             </React.Fragment>

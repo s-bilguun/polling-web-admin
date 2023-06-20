@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@600&display=swap');
 :root {
   --foreground-color: #000000;
   --background-start-rgb: 214, 219, 220;
@@ -24,13 +25,14 @@ body {
   margin: 0;
   display: flex;
   flex-direction: column;
+  font-family: 'Nunito', sans-serif;
 }
 
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 75vw;
+  width: auto;
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
@@ -51,9 +53,6 @@ body {
     border: 2px solid rgba(255, 255, 255, 0.2); /* Increased border thickness in dark mode */
   }
 }
-
-
-
 
 .flex {
   display: flex;
@@ -175,8 +174,6 @@ header {
   }
 }
 
-
-
 .logo img {
   filter: drop-shadow(0 0 1px #000000);
   margin-left: 10px;
@@ -186,7 +183,8 @@ header {
 
 .header-list {
   display: flex;
-  align-items: center;
+  justify-content: space-between;
+  /* align-items: center; */
   list-style-type: none;
   padding: 0;
   margin: 0;
@@ -194,7 +192,9 @@ header {
 
 .header-item {
   display: flex;
+  justify-content: space-between;
   align-items: center;
+  margin-right: 10px;
 }
 
 .header-item-spacer {
@@ -203,7 +203,7 @@ header {
 }
 
 .add-users-button {
-  background-color: #21d8c0;
+  background-color: #A1C2F1;
   color: #000;
   border: 1px solid black;
   padding: 10px 20px;
@@ -213,8 +213,9 @@ header {
 
 @media (prefers-color-scheme: dark) {
   .add-users-button {
-    background-color: #116fd3;
+    background-color: #204a9e;
     color: white;
+    border: 1px solid rgb(147, 147, 147);
   }
 }
 
@@ -239,7 +240,7 @@ header {
 .logout-button {
   background-color: #6ae7d0;
   color: #000;
-  border: 1px solid black;
+  border: 1px solid rgb(0, 0, 0);
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
@@ -249,12 +250,14 @@ header {
 
 @media (prefers-color-scheme: dark) {
   .poll-create-button {
-    background-color: #116fd3;
+    background-color: #204a9e;
     color: white; 
+    border: 1px solid rgb(147, 147, 147);
   }
   .logout-button {
-    background-color: #116fd3;
+    background-color: #204a9e;
     color: white;
+    border: 1px solid rgb(147, 147, 147);
   }
 }
 .text-input {
@@ -428,7 +431,7 @@ header h1 {
 
 @media (prefers-color-scheme: dark) {
   .login-container {
-    background-color: #033162;
+    background-color: #204a9e;
     border-color: rgba(255, 255, 255, 0.2);
   }
 
@@ -461,7 +464,6 @@ header h1 {
 
 .poll-list {
   display: grid;
-  
   width: 100%; /* Make the poll list wider */
 }
 .poll-list h2 {
@@ -474,6 +476,7 @@ header h1 {
   align-items: flex-start;
   padding: 16px;
   border: 1px solid #000000;
+  border-radius: 10px;
   margin-bottom: 16px;
   max-width: 800px;
   min-width: 300px;
@@ -831,7 +834,7 @@ label {
 }
 
 .pagination-button.active {
-  background-color: #4299e1;
+  background-color: #204a9e;
   color: #ffffff;
 }
 
@@ -839,4 +842,3 @@ label {
   opacity: 0.5;
   cursor: not-allowed;
 }
-
