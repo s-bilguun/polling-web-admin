@@ -1,25 +1,48 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@600&display=swap');
 :root {
+  --color-primary: #000;
+  --background: linear-gradient(to right, #f0f2f5, #f0f2f5);
   --foreground-color: #000000;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  --header-background: linear-gradient(to right, #ffffff, #ffffff);
+  --buttom-background: #B9D2D2;
+  --container-background: linear-gradient(to top, #ffffff, #ffffff);
+  --color-poll-date: #000000ab;
+  --color-333: #ebebeb;
+  --shadow: rgba(0, 0, 0, 0.2);
 }
+
+[data-theme='dark'] {
+  --color-primary: #fff;
+  --background: linear-gradient(to right, #18191a, #18191a);
+  --foreground-color: #ffffff;
+  --background-start-rgb: 43, 48, 70;
+  --background-end-rgb: 47, 54, 150;
+  --header-background: linear-gradient(to right, #242526, #242526);
+  --buttom-background: #2374e1;
+  --container-background: linear-gradient(to top, #242526, #242526);
+  --color-poll-date: rgba(240, 227, 227, 0.719);
+  --color-333: #333;
+  --shadow: rgba(255, 255, 255, 0.2);
+}
+
 
 body.page-polls-details {
   color: var(--foreground-color);
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --foreground-color: #ffffff;
     --background-start-rgb: 43, 48, 70;
     --background-end-rgb: 47, 54, 150;
   }
-}
+} */
 
 body {
   color: rgb(var(--foreground-color));
-  background: linear-gradient(to bottom, transparent, rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+  background: var(--background);
   min-height: 100vh;
   padding: 0;
   margin: 0;
@@ -37,18 +60,19 @@ body {
   margin: 0 auto;
   padding: 2rem;
   border-radius: 0.25rem;
-  background-image: linear-gradient(to bottom, rgb(181, 206, 227), rgb(140, 173, 213)); /* Adjust the gradient colors */
+  background-image: var(--container-background); /* Adjust the gradient colors */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4); /* Increased shadow intensity */
   border: 2px solid rgba(0, 0, 0, 0.2); /* Increased border thickness */
   box-sizing: border-box;
-  color: rgb(0, 0, 0);
+  color: var(--color-primary);
   position: relative; /* Added for positioning */
+  transition: color 0.3s ease-in-out;
 }
 
 @media (prefers-color-scheme: dark) {
   .container {
-    background-image: linear-gradient(to bottom, rgb(41, 41, 104), rgb(37, 37, 185)); /* Adjust the gradient colors for dark mode */
-    color: white;
+    background-image: var(--container-background); /* Adjust the gradient colors for dark mode */
+    color: var(--color-primary);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6); /* Increased shadow intensity in dark mode */
     border: 2px solid rgba(255, 255, 255, 0.2); /* Increased border thickness in dark mode */
   }
@@ -96,12 +120,12 @@ body {
 
 .user-email {
   font-size: 12px;
-  color: rgb(62, 27, 149);
+  color: var(--color-poll-date);
 }
 
 @media (prefers-color-scheme: dark) {
   .user-email {
-    color: rgb(166, 164, 164);
+    color: var(--color-poll-date);
   }
 }
 
@@ -131,19 +155,19 @@ body {
   align-self: flex-end;
   margin-right: 0;
   padding: 10px 20px;
-  border: solid black 1px;
+  border: solid var(--color-primary) 1px;
   border-radius: 5px;
-  background-color: #6aaff9;
-  color: #000000;
+  background-color: var(--buttom-background);
+  color: var(--color-primary);
   font-size: 16px;
   cursor: pointer;
 }
 
 @media (prefers-color-scheme: dark) {
   .manage-users-button {
-    background-color: #071877;
-    border: solid white 1px;
-    color: white;
+    background-color: var(--buttom-background);
+    border: solid var(--color-primary) 1px;
+    color: var(--color-primary);
   }
 }
 
@@ -152,25 +176,26 @@ header {
   top: 0;
   left: 0;
   height: 60px;
-  background: linear-gradient(to right, #b6d5fa, #93b5e4);
+  background: var(--header-background);
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 1.25rem;
   margin-bottom: 3%;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 4px var(--shadow);
+  color: var(--color-primary);
 }
 
 
 @media (prefers-color-scheme: dark) {
   header {
-    background: linear-gradient(to right, #1e1361, #2b3497);
-    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.2); /* Adjusted box-shadow for dark mode */
+    background: var(--header-background);
+    box-shadow: 0 2px 4px var(--shadow); /* Adjusted box-shadow for dark mode */
     border-bottom: solid rgb(120, 126, 229) 1px;
   }
 
   header ul li {
-    color: #ffffff;
+    color: var(--color-primary);
   }
 }
 
@@ -203,9 +228,9 @@ header {
 }
 
 .add-users-button {
-  background-color: #A1C2F1;
-  color: #000;
-  border: 1px solid black;
+  background-color: var(--buttom-background);
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
@@ -213,16 +238,16 @@ header {
 
 @media (prefers-color-scheme: dark) {
   .add-users-button {
-    background-color: #204a9e;
-    color: white;
-    border: 1px solid rgb(147, 147, 147);
+    background-color: var(--buttom-background);
+    color: var(--color-primary);
+    border: 1px solid var(--color-primary);
   }
 }
 
 .poll-create-button {
-  background-color: #6ae7d0;
-  color: #000;
-  border: 1px solid black;
+  background-color: var(--buttom-background);
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
@@ -238,9 +263,9 @@ header {
   right: 50px;
 }
 .logout-button {
-  background-color: #6ae7d0;
-  color: #000;
-  border: 1px solid rgb(0, 0, 0);
+  background-color: var(--buttom-background);
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
@@ -250,14 +275,14 @@ header {
 
 @media (prefers-color-scheme: dark) {
   .poll-create-button {
-    background-color: #204a9e;
-    color: white; 
-    border: 1px solid rgb(147, 147, 147);
+    background-color: var(--buttom-background);
+    color: var(--color-primary); 
+    border: 1px solid var(--color-primary);
   }
   .logout-button {
-    background-color: #204a9e;
-    color: white;
-    border: 1px solid rgb(147, 147, 147);
+    background-color: var(--buttom-background);
+    color: var(--color-primary);
+    border: 1px solid var(--color-primary);
   }
 }
 .text-input {
@@ -268,7 +293,7 @@ header {
 }
 
 .add-user-submit {
-  background-color: blue;
+  background-color: #2374e1;
   color: white;
   border: none;
   padding: 0.5rem 1rem;
@@ -293,11 +318,6 @@ header h1 {
   margin-right: 50px;
 }
 
-.container ul li .disable-button {
-}
-
-
-
 .container h1 {
   font-size: 2.5rem;
   margin-bottom: 2rem;
@@ -321,7 +341,7 @@ header h1 {
 }
 
 .container li:hover {
-  color: #a8c5ff;
+  color: #2375e1cd;
 }
 
 .container ul.mb-4 li {
@@ -338,28 +358,28 @@ header h1 {
 }
 
 .container ul li:nth-child(odd) {
-  color: #000000;
+  color: var(--color-primary);
 }
 
 .container ul li:nth-child(even) {
-  color: #1b4aa1;
+  color: var(--color-poll-date);
 }
 
 @media (prefers-color-scheme: dark) {
   .container ul li:nth-child(odd) {
-    color: #ffffff;
+    color: var(--color-primary);
   }
 
   .container ul li:nth-child(even) {
-    color: #c7ebf5c2;
+    color: var(--color-poll-date);
   }
 
   .container div.chartjs-render-monitor {
-    color: #ffffff;
+    color: var(--color-primary);
   }
 
   .container ul li a {
-    color: #ffffff;
+    color: var(--color-primary);
     text-decoration: none;
   }
 }
@@ -475,7 +495,7 @@ header h1 {
   display: flex;
   align-items: flex-start;
   padding: 16px;
-  border: 1px solid #000000;
+  border: 1px solid var(--color-primary);
   border-radius: 10px;
   margin-bottom: 16px;
   max-width: 800px;
@@ -484,7 +504,7 @@ header h1 {
 
 @media (prefers-color-scheme: dark) {
   .poll-list .poll-item {
-    border-color: white;
+    border-color: var(--color-primary);
   }
 }
 
@@ -502,7 +522,7 @@ header h1 {
 .poll-list .poll-title-link {
   font-size: 25px;
   font-weight: bold;
-  color: black;
+  color: var(--color-primary);
   text-decoration: none;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -514,13 +534,13 @@ header h1 {
 
 @media (prefers-color-scheme: dark) {
   .poll-list .poll-title-link {
-    color: white;
+    color: var(--color-primary);
   }
 }
 
 .poll-list .poll-datetime {
   font-size: 12px;
-  color: #000000ab;
+  color: var(--color-poll-date);
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -529,7 +549,7 @@ header h1 {
 
 @media (prefers-color-scheme: dark) {
   .poll-list .poll-datetime {
-    color: rgba(240, 227, 227, 0.719);
+    color: var(--color-poll-date);
   }
 }
 
@@ -555,6 +575,7 @@ header h1 {
 }
 
 label {
+  color: var(--color-primary);;
   font-weight: bold;
 }
 
@@ -563,6 +584,7 @@ label {
   padding: 10px;
   border-radius: 5px;
   border: 1px solid #ccc;
+  color: var(--color-primary);
 }
 
 .info-group div {
@@ -593,18 +615,18 @@ label {
 /* Dark mode styles */
 @media (prefers-color-scheme: dark) {
   body {
-    background-color: #111;
-    color: #fff;
+    background-color: var(--background);
+    color: var(--color-primary);
   }
 
 
   label {
-    color: #fff;
+    color: var(--color-primary);
   }
 
   .text-input {
-    background-color: #333470;
-    color: #fff;
+    background-color: var(--background);
+    color: var(--color-primary);
   }
 
   .add-user-submit {
@@ -632,10 +654,10 @@ label {
   margin: 0 auto;
   padding: 2rem;
   border-radius: 0.25rem;
-  background-image: linear-gradient(to bottom, rgb(181, 206, 227), rgb(140, 173, 213));
+  background-image: var(--container-background);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
-  color: rgb(0, 0, 0);
+  color: var(--color-primary);
   position: relative;
 }
 
@@ -660,8 +682,8 @@ label {
   padding: 0.5rem; /* Adjusted padding */
   border: 1px solid #ccc;
   border-radius: 0.25rem;
-  background-color: #f8f8f8; /* Added light mode background color */
-  color: #000; /* Added light mode text color */
+  background-color: var(--color-333); /* Added light mode background color */
+  color: var(--color-primary); /* Added light mode text color */
   margin-bottom: 0.5rem; /* Added margin-bottom */
 }
 
@@ -670,7 +692,7 @@ label {
   padding: 0.5rem 1rem; /* Adjusted padding */
   margin-top: 1rem;
   background-color: #2196f3;
-  color: #fff;
+  color: var(--color-primary);
   cursor: pointer;
 }
 
@@ -681,20 +703,20 @@ label {
 /* Light mode colors */
 @media (prefers-color-scheme: light) {
   .container.add-poll {
-    background-image: linear-gradient(to bottom, rgb(181, 206, 227), rgb(140, 173, 213));
+    background-image: var(--container-background);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    color: rgb(0, 0, 0);
+    color: var(--color-primary);
   }
 
   .container.add-poll input[type="text"],
   .container.add-poll input[type="datetime-local"] {
-    background-color: #f8f8f8;
-    color: #000;
+    background-color: var(--color-333);
+    color: var(--color-primary);
   }
 
   .container.add-poll button {
     background-color: #2196f3;
-    color: #fff;
+    color: var(--color-primary);
   }
 
   .container.add-poll button:hover {
@@ -705,20 +727,20 @@ label {
 /* Dark mode colors */
 @media (prefers-color-scheme: dark) {
   .container.add-poll {
-    background-image: linear-gradient(to bottom, rgb(41, 41, 104), rgb(37, 37, 185));
+    background-image: var(--container-background);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    color: white;
+    color: var(--color-primary);
   }
 
   .container.add-poll input[type="text"],
   .container.add-poll input[type="datetime-local"] {
-    background-color: #000066; /* Dark blue background */
-    color: #fff; /* White text color */
+    background-color: var(--color-333); /* Dark blue background */
+    color: var(--color-primary); /* White text color */
   }
 
   .container.add-poll button {
     background-color: #006699; /* Darker button color */
-    color: #fff;
+    color: var(--color-primary);
   }
 
   .container.add-poll button:hover {
@@ -766,8 +788,8 @@ label {
 @media (prefers-color-scheme: dark) {
   .container input[type="text"],
   .container input[type="datetime-local"] {
-    background-color: #333470;
-    color: #fff;
+    background-color: var(--background);
+    color: var(--color-primary);
     border-color: #ffffff;
   }
 
@@ -778,22 +800,6 @@ label {
   .container .edit-poll,
   .container .delete-poll {
     background-color: #115ccc;
-  }
-}
-
-@media (prefers-color-scheme: light) {
-  .container input[type="text"],
-  .container input[type="datetime-local"] {
-    background-color: #f5f5f5;
-  }
-
-  .container .save-button {
-    background-color: #1976d2;
-  }
-
-  .container .edit-poll,
-  .container .delete-poll {
-    background-color: #1976d2;
   }
 }
 
@@ -834,11 +840,57 @@ label {
 }
 
 .pagination-button.active {
-  background-color: #204a9e;
+  background-color: #2374e1;
   color: #ffffff;
 }
 
 .pagination-button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+/* mode switch */
+.toggle-container {
+  display: flex;
+  align-items: center;
+  /* padding: auto; */
+  margin: 30px;
+}
+
+.toggle-icon {
+  cursor: pointer;
+  transition: color 0.3s ease; 
+}
+
+.toggle-icon.sun {
+  color: #fdd835;
+  font-size: 1.5rem; /* Set the color for the sun icon */
+}
+
+.toggle-icon.moon {
+  color: #3f51b5;
+  font-size: 1.5rem; /* Set the color for the moon icon */
+}
+
+.toggle-icon.sun:hover,
+.toggle-icon.moon:hover {
+  opacity: 0.8; /* Set the opacity when hovering over the icons */
+}
+
+.toggle-icon.sun:before,
+.toggle-icon.moon:before {
+  display: inline-block;
+  margin-right: 8px;
+  font-size: 20px;
+  transition: opacity 0.3s ease-in-out; 
+}
+
+.toggle-icon.sun:before {
+  content: '\f185'; /* Set the content to the sun icon's unicode */
+  font-family: 'Font Awesome 5 Free';
+}
+
+.toggle-icon.moon:before {
+  content: '\f186'; /* Set the content to the moon icon's unicode */
+  font-family: 'Font Awesome 5 Free';
 }
