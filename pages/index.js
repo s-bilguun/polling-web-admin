@@ -144,8 +144,8 @@ const AdminPage = () => {
       <div className="container mx-auto p-4">
         <h1 className="text-3xl font-bold mb-4">Admin dashboard</h1>
         <button className="manage-users-button" onClick={handleUserManagementClick}>
-          Manage Users
-        </button>
+  {showUserList ? 'Hide Users' : 'Manage Users'}
+</button>
         <div className="flex">
           <div className="poll-list-container w-1/2 pr-4">
             <h2 className="text-2xl font-semibold mb-2">Polls</h2>
