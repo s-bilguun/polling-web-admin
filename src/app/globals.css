@@ -1,20 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@600&display=swap');
 :root {
   --color-primary: #000;
+  --color-mix: #848484;
   --background: linear-gradient(to right, #f0f2f5, #f0f2f5);
   --foreground-color: #000000;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
   --header-background: linear-gradient(to right, #ffffff, #ffffff);
-  --buttom-background: #B9D2D2;
+  --buttom-background: #9aabf0;
   --container-background: linear-gradient(to top, #ffffff, #ffffff);
   --color-poll-date: #000000ab;
   --color-333: #ebebeb;
+  --color-delete: #e87474;
   --shadow: rgba(0, 0, 0, 0.2);
 }
 
 [data-theme='dark'] {
   --color-primary: #fff;
+  --color-mix: #bebebe;
   --background: linear-gradient(to right, #18191a, #18191a);
   --foreground-color: #ffffff;
   --background-start-rgb: 43, 48, 70;
@@ -24,6 +27,7 @@
   --container-background: linear-gradient(to top, #242526, #242526);
   --color-poll-date: rgba(240, 227, 227, 0.719);
   --color-333: #333;
+  --color-delete: #a92e2e;
   --shadow: rgba(255, 255, 255, 0.2);
 }
 
@@ -61,22 +65,15 @@ body {
   padding: 2rem;
   border-radius: 0.25rem;
   background-image: var(--container-background); /* Adjust the gradient colors */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4); /* Increased shadow intensity */
-  border: 2px solid rgba(0, 0, 0, 0.2); /* Increased border thickness */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Increased shadow intensity */
+  border: 2px solid rgba(255, 255, 255, 0.2); /* Increased border thickness */
   box-sizing: border-box;
   color: var(--color-primary);
   position: relative; /* Added for positioning */
   transition: color 0.3s ease-in-out;
+  
 }
 
-@media (prefers-color-scheme: dark) {
-  .container {
-    background-image: var(--container-background); /* Adjust the gradient colors for dark mode */
-    color: var(--color-primary);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6); /* Increased shadow intensity in dark mode */
-    border: 2px solid rgba(255, 255, 255, 0.2); /* Increased border thickness in dark mode */
-  }
-}
 
 .flex {
   display: flex;
@@ -163,15 +160,6 @@ body {
   cursor: pointer;
 }
 
-@media (prefers-color-scheme: dark) {
-  .manage-users-button {
-    background-color: var(--buttom-background);
-    border: solid var(--color-primary) 1px;
-    color: var(--color-primary);
-  }
-}
-
-
 header {
   top: 0;
   left: 0;
@@ -182,22 +170,13 @@ header {
   justify-content: space-between;
   padding: 1.25rem;
   margin-bottom: 3%;
-  box-shadow: 0 2px 4px var(--shadow);
+  box-shadow: 0 2px 2px var(--shadow);
   color: var(--color-primary);
+  border-bottom: solid 2px var(--buttom-background);
 }
 
 
-@media (prefers-color-scheme: dark) {
-  header {
-    background: var(--header-background);
-    box-shadow: 0 2px 4px var(--shadow); /* Adjusted box-shadow for dark mode */
-    border-bottom: solid rgb(120, 126, 229) 1px;
-  }
 
-  header ul li {
-    color: var(--color-primary);
-  }
-}
 
 .logo img {
   filter: drop-shadow(0 0 1px #000000);
@@ -236,13 +215,6 @@ header {
   cursor: pointer;
 }
 
-@media (prefers-color-scheme: dark) {
-  .add-users-button {
-    background-color: var(--buttom-background);
-    color: var(--color-primary);
-    border: 1px solid var(--color-primary);
-  }
-}
 
 .poll-create-button {
   background-color: var(--buttom-background);
@@ -270,34 +242,6 @@ header {
   border-radius: 5px;
   cursor: pointer;
   
-}
-
-
-@media (prefers-color-scheme: dark) {
-  .poll-create-button {
-    background-color: var(--buttom-background);
-    color: var(--color-primary); 
-    border: 1px solid var(--color-primary);
-  }
-  .logout-button {
-    background-color: var(--buttom-background);
-    color: var(--color-primary);
-    border: 1px solid var(--color-primary);
-  }
-}
-.text-input {
-  width: 100%;
-  padding: 0.5rem;
-  border: 1px solid gray;
-  border-radius: 4px;
-}
-
-.add-user-submit {
-  background-color: #2374e1;
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
 }
 
 
@@ -349,7 +293,7 @@ header h1 {
 }
 
 .container ul li::before {
-  content: '➜ ';
+  content: '\2022';       /*bullet point dot before list.*/
   margin-right: 0.5rem;
 }
 
@@ -365,24 +309,6 @@ header h1 {
   color: var(--color-poll-date);
 }
 
-@media (prefers-color-scheme: dark) {
-  .container ul li:nth-child(odd) {
-    color: var(--color-primary);
-  }
-
-  .container ul li:nth-child(even) {
-    color: var(--color-poll-date);
-  }
-
-  .container div.chartjs-render-monitor {
-    color: var(--color-primary);
-  }
-
-  .container ul li a {
-    color: var(--color-primary);
-    text-decoration: none;
-  }
-}
 
 .mb-4 {
   margin-bottom: 30px;
@@ -399,16 +325,17 @@ header h1 {
   margin-top: 10%;
   padding: 5rem;
   box-sizing: border-box;
-  background-color: rgb(166, 198, 240);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  background-image: var(--container-background);
   border-radius: 10px; /* Added border radius for rounded corners */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4); /* Increased shadow intensity */
+  border: 1px solid var(--color-mix); /* Increased border thickness */
+  color: var(--color-primary);
 }
 
 .login-container h1 {
   font-size: 2.5rem; /* Increased font size */
   margin-bottom: 2rem; /* Increased margin bottom */
-  color: #333; /* Added text color */
+  color: var(--color-primary); /* Added text color */
 }
 
 .login-container form {
@@ -425,50 +352,30 @@ header h1 {
 .login-container label {
   font-weight: bold;
   margin-bottom: 1rem;
-  color: #555; /* Added text color */
+  color: var(--color-primary);  /* Added text color */
 }
 
 .login-container input {
   padding: 1rem;
   width: 100%;
   border-radius: 5px; /* Added border radius for rounded corners */
-  border: 1px solid #999; /* Added border */
+  border: 1px solid var(--color-mix);
+  background-color: var(--color-333);
+  color: var(--color-primary);
 }
 
 .login-container button {
   padding: 1rem 2rem; /* Increased padding */
-  font-size: 1.2rem; /* Increased font size */
-  background-color: #007bff;
-  color: #fff;
-  border: none;
+  font-size: 1rem; /* Increased font size */
+  background-color: var(--buttom-background);
+  color: var(--color-primary);
+  border: 1px solid var(--color-mix);
   cursor: pointer;
-  border-radius: 5px; /* Added border radius for rounded corners */
+  border-radius: 10px; /* Added border radius for rounded corners */
 }
 
 .login-container button:hover {
-  background-color: #0056b3;
-}
-
-@media (prefers-color-scheme: dark) {
-  .login-container {
-    background-color: #204a9e;
-    border-color: rgba(255, 255, 255, 0.2);
-  }
-
-  .login-container h1,
-  .login-container label {
-    color: white;
-  }
-  .login-container input {
-    background-color: #263859;
-    color: white;
-    border: 1px solid #777; /* Adjusted border color */
-  }
-  .login-container button {
-    background-color: #0b78d4;
-    color: white;
-    border: none;
-  }
+  opacity: 0.8;
 }
 
 /* poll list on index styling */
@@ -530,6 +437,7 @@ header h1 {
   overflow: hidden;
   word-break: break-word;
   max-height: 3.6em;
+  cursor: pointer;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -547,11 +455,6 @@ header h1 {
   margin-left: auto;
 }
 
-@media (prefers-color-scheme: dark) {
-  .poll-list .poll-datetime {
-    color: var(--color-poll-date);
-  }
-}
 
 .poll-list .poll-datetime p {
   margin: 4px 0;
@@ -583,7 +486,7 @@ label {
   width: 100%;
   padding: 10px;
   border-radius: 5px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--color-mix);
   color: var(--color-primary);
 }
 
@@ -594,58 +497,27 @@ label {
 .add-user-submit,
 .edit-user,
 .delete-user {
-  background-color: #2196f3;
-  color: white;
+  background-color: var(--buttom-background);
+  color: var(--color-primary);
   padding: 10px 20px;
-  border: none;
+  border: solid 1px var(--color-primary);
   border-radius: 5px;
   margin-right: 10px;
   cursor: pointer;
 }
 
 .edit-user {
-  background-color: #4caf50;
+  background-color: var(--buttom-background);
 }
 
 .delete-user {
-  background-color: #f44336;
-}
-
-
-/* Dark mode styles */
-@media (prefers-color-scheme: dark) {
-  body {
-    background-color: var(--background);
-    color: var(--color-primary);
-  }
-
-
-  label {
-    color: var(--color-primary);
-  }
-
-  .text-input {
-    background-color: var(--background);
-    color: var(--color-primary);
-  }
-
-  .add-user-submit {
-    background-color: #196cb0;
-  }
-
-  .edit-user {
-    background-color: #457bde;
-  }
-
-  .delete-user {
-    background-color: #b42d2d;
-  }
+  background-color: var(--color-delete);
 }
 
 
 
 /*Poll creation in admin styling*/
-.container.add-poll {
+.container .add-poll {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -760,7 +632,7 @@ label {
   width: 100%;
   padding: 0.5rem;
   border-radius: 5px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--color-mix);
 }
 
 .container .save-button {
@@ -785,23 +657,6 @@ label {
   cursor: pointer;
 }
 
-@media (prefers-color-scheme: dark) {
-  .container input[type="text"],
-  .container input[type="datetime-local"] {
-    background-color: var(--background);
-    color: var(--color-primary);
-    border-color: #ffffff;
-  }
-
-  .container .save-button {
-    background-color: #0c87e8;
-  }
-
-  .container .edit-poll,
-  .container .delete-poll {
-    background-color: #115ccc;
-  }
-}
 
 .container .button-container {
   display: flex;
