@@ -54,10 +54,10 @@ const AddUser = () => {
     <div>
       <Header />
       <div className="container">
-        <h1 className="add-user">Add User</h1>
+        <h1 className="add-user">Хэрэглэгч нэмэх</h1>
         <form className="form">
           <div className="form-group">
-            <label htmlFor="username">Username</label>
+            <label htmlFor="username">Нэр</label>
             <input
               className="text-input"
               id="username"
@@ -66,7 +66,7 @@ const AddUser = () => {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password">Нууц үг</label>
             <input
               className="text-input"
               id="password"
@@ -74,8 +74,19 @@ const AddUser = () => {
               placeholder="Password"
             />
           </div>
+
           <div className="form-group">
-            <label htmlFor="email">Email</label>
+            <label htmlFor="password">Нууц үг дахин оруулна уу</label>
+            <input
+              className="text-input"
+              id="password"
+              type="password"
+              placeholder="Password"
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="email">Цахим хаяг</label>
             <input
               className="text-input"
               id="email"
@@ -84,24 +95,16 @@ const AddUser = () => {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="role">Role</label>
+            <label htmlFor="role">Үүрэг</label>
             <select className="text-input" id="role">
             onChange={(e) => setRole(e.target.value)}
               <option value="Admin">User</option>
               <option value="User">Admin</option>
             </select>
           </div>
-          <div className="form-group">
-            <label htmlFor="birthdate">Birthday</label>
-            <input
-              className="text-input"
-              id="birthdate"
-              type="date"
-              placeholder="Birthdate"
-            />
-          </div>
+ 
           <button className="add-user-submit" onClick={handleAddUser}>
-            Add User
+            Үүсгэх
           </button>
         </form>
       </div>

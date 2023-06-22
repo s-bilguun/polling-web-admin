@@ -7,34 +7,40 @@ import axios from 'axios';
 import withAuth from './withAuth';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
+import SearchBar from './SearchBar';
+import DropdownSort from './DropdownSort';
+import { faArrowDownWideShort } from "@fortawesome/free-solid-svg-icons";
+import { RiSearchLine } from 'react-icons/ri';
 
 const formatDateTime = (dateTimeString) => {
   const dateTime = new Date(dateTimeString);
-  const date = dateTime.toLocaleDateString('en-US');
-  const time = dateTime.toLocaleTimeString('en-US', {
-    hour12: false,
-    hour: '2-digit',
-    minute: '2-digit',
-  });
-  return `${date} ${time}`;
+  const year = dateTime.getFullYear().toString().slice(-2); // Extract the last two digits of the year
+  const month = ('0' + (dateTime.getMonth() + 1)).slice(-2); // Add leading zero if needed
+  const date = ('0' + dateTime.getDate()).slice(-2); // Add leading zero if needed
+  const hours = ('0' + dateTime.getHours()).slice(-2); // Add leading zero if needed
+  const minutes = ('0' + dateTime.getMinutes()).slice(-2); // Add leading zero if needed
+
+  return `${year}-${month}-${date} ${hours}:${minutes}`;
 };
 
 const AdminPage = () => {
-  const pollsPerPage = 5; // Number of polls to display per page
-  const usersPerPage = 10; // Number of users to display per page
+  const pollsPerPage = 10; // Number of polls to display per page
 
   const [polls, setPolls] = useState([]);
+  const [notFound, setNotFound] = useState(false);
+  const [initialPolls, setInitialPolls] = useState([]);
 
   useEffect(() => {
-    
     const fetchPolls = async () => {
       try {
         const response = await fetch('http://localhost:8001/poll/list');
-
+  
         if (response.ok) {
           const data = await response.json();
           console.log(data);
           setPolls(data);
+          setInitialPolls(data); // Store the original list of polls
+          setNotFound(data.length === 0); // Set notFound based on the length of the polls
         } else {
           console.error('Failed to fetch polls');
         }
@@ -42,33 +48,11 @@ const AdminPage = () => {
         console.error('Error fetching polls:', error);
       }
     };
-
+  
     fetchPolls();
   }, []);
 
   const router = useRouter();
-
-
-  const [users, setUsers] = useState([]);
-
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const response = await fetch('http://localhost:8001/user/getUsers');
-
-        if (response.ok) {
-          const data = await response.json();
-          setUsers(data.userList);
-        } else {
-          console.error('Failed to fetch users');
-        }
-      } catch (error) {
-        console.error('Error fetching users:', error);
-      }
-    };
-
-    fetchUsers();
-  }, []);
 
   const handlePollClick = (poll) => {
     console.log('Clicked on poll:', poll.id);
@@ -77,37 +61,68 @@ const AdminPage = () => {
       query: { id: poll.id },
     });
   };
-  const handleUserClick = (id) => {
-    router.push(`/user/${id}`);
+
+  
+  const sortOptions = [
+    { label: 'Шинэ', value: 'new polls' },
+    { label: 'Хуучин', value: 'old polls' },
+    { label: 'A to Z', value: 'aToZ' },
+    { label: 'Z to A', value: 'zToA' },
+    { label: 'Идэвхтэй', value: 'active polls' },
+  ];
+
+  const handleSort = (selectedOption) => {
+    const sortedPolls = [...polls];
+
+    switch (selectedOption) {
+      case 'new polls':
+        sortedPolls.sort((a, b) => new Date(b.startdate) - new Date(a.startdate));
+        break;
+      case 'old polls':
+        sortedPolls.sort((a, b) => new Date(a.startdate) - new Date(b.startdate));
+        break;
+      case 'aToZ':
+        sortedPolls.sort((a, b) => a.question.localeCompare(b.question));
+        break;
+      case 'zToA':
+        sortedPolls.sort((a, b) => b.question.localeCompare(a.question));
+        break;
+      case 'active polls':
+        sortedPolls.sort((a, b) => {
+          const now = new Date();
+          const aIsActive = new Date(a.startdate) <= now && new Date(a.expiredate) >= now;
+          const bIsActive = new Date(b.startdate) <= now && new Date(b.expiredate) >= now;
+
+          // Sort active polls first
+          if (aIsActive && !bIsActive) {
+            return -1;
+          }
+          if (!aIsActive && bIsActive) {
+            return 1;
+          }
+
+          // Sort by start date for both active and inactive polls
+          return new Date(b.startdate) - new Date(a.startdate);
+        });
+        break;
+      default:
+        break;
+    }
+
+    setPolls(sortedPolls);
   };
 
-  const [showUserList, setShowUserList] = useState(false);
 
-  const handleUserManagementClick = () => {
-    setShowUserList(!showUserList);
-  };
-
-  // Pagination state for polls list
   const [pollsPage, setPollsPage] = useState(1);
   const pollsTotalPages = Math.ceil(polls.length / pollsPerPage);
   const pollsStartIndex = (pollsPage - 1) * pollsPerPage;
   const pollsEndIndex = pollsPage * pollsPerPage;
   const currentPolls = polls.slice(pollsStartIndex, pollsEndIndex);
 
-  // Pagination state for users list
-  const [usersPage, setUsersPage] = useState(1);
-  const usersTotalPages = Math.ceil(users.length / usersPerPage);
-  const usersStartIndex = (usersPage - 1) * usersPerPage;
-  const usersEndIndex = usersPage * usersPerPage;
-  const currentUsers = users.slice(usersStartIndex, usersEndIndex);
-
   const handlePollsPageChange = (page) => {
     setPollsPage(page);
   };
 
-  const handleUsersPageChange = (page) => {
-    setUsersPage(page);
-  };
   const renderPollPagination = () => {
     const pages = [];
     for (let i = 1; i <= pollsTotalPages; i++) {
@@ -139,65 +154,47 @@ const AdminPage = () => {
     }
     return pages;
   };
+
   return (
-    <Layout onUserManagementClick={handleUserManagementClick}>
+    <Layout>
       <div className="container mx-auto p-4">
-        <h1 className="text-3xl font-bold mb-4">Admin dashboard</h1>
-        <button className="manage-users-button" onClick={handleUserManagementClick}>
-  {showUserList ? 'Hide Users' : 'Manage Users'}
-</button>
         <div className="flex">
           <div className="poll-list-container w-1/2 pr-4">
-            <h2 className="text-2xl font-semibold mb-2">Polls</h2>
-            <div className="poll-list">
-              {currentPolls.map((poll) => (
-                <div key={poll.id} className="poll-item">
-                  <div className="poll-details">
-                    <div className="poll-username"><FontAwesomeIcon icon={faUser} /> {poll.username}</div>
-                    <div className="poll-title-link" onClick={() =>
-                      handlePollClick(poll)}>
-                      {poll.question}
-                    </div>
-
-                  </div>
-                  <div className="poll-datetime">
-                    <p>Start Datetime: {formatDateTime(poll.startdate)}</p>
-                    <p>End Datetime: {formatDateTime(poll.expiredate)}</p>
-                  </div>
-                </div>
-              ))}
+            <h2 className="text-2xl font-semibold mb-2">Санал асуулгууд</h2>
+            <div className='second-header'>
+              <SearchBar setPolls={setPolls} setNotFound={setNotFound} initialPolls={initialPolls} />
+              <div>
+                Sort by <FontAwesomeIcon icon={faArrowDownWideShort} className='icon-initial' /> <DropdownSort options={sortOptions} onSelectSort={handleSort} />
+              </div>
             </div>
+            {notFound ? (
+              <div className="error-container">
+                <p>Хайлтад таарсан санал асуулга олдсонгүй</p>
+              </div>
+            ) : (
+              <div className="poll-list">
+                {currentPolls.map((poll) => (
+                  <div key={poll.id} className="poll-item">
+                    <div className="poll-details">
+                      <div className="poll-username">
+                        <FontAwesomeIcon icon={faUser} /> {poll.username}
+                      </div>
+                      <div className="poll-title-link" onClick={() => handlePollClick(poll)}>
+                        {poll.question}
+                      </div>
+                    </div>
+                    <div className="poll-datetime">
+                      <p>Эхлэх: {formatDateTime(poll.startdate)}</p>
+                      <p>Дуусах: {formatDateTime(poll.expiredate)}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
             <div className="pagination-container">
               {renderPollPagination()}
             </div>
           </div>
-
-
-
-          {showUserList && (
-            <div className="user-list-container w-1/2 pl-4">
-              <div className="mb-8">
-                <h2 className="text-2xl font-semibold mb-2">Registered Users</h2>
-                <ul>
-                  {currentUsers.map((user) => (
-                    <li key={user.id}>
-                      <div
-                        className="user-details"
-                        onClick={() => handleUserClick(user.id)}
-                      >
-                        <div className="user-username">Username: {user.username}</div>
-                        <div className="user-email">Email: {user.email}</div>
-                      </div>
-                      {/* ... */}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="pagination-container">
-                {renderUserPagination()}
-              </div>
-            </div>
-          )}
         </div>
       </div>
     </Layout>

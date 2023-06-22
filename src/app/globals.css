@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@600&display=swap');
+
 :root {
   --color-primary: #000;
   --color-mix: #848484;
@@ -7,12 +8,16 @@
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
   --header-background: linear-gradient(to right, #ffffff, #ffffff);
-  --buttom-background: #9aabf0;
+  --buttom-background: #8bc6f0;
   --container-background: linear-gradient(to top, #ffffff, #ffffff);
   --color-poll-date: #000000ab;
   --color-333: #ebebeb;
   --color-delete: #e87474;
   --shadow: rgba(0, 0, 0, 0.2);
+  --table-title-background: #f2f2f2;
+  --table-divider: #dcdcdc;
+  --color-444: #ffffff;
+  --calendar-icon-filter: none;
 }
 
 [data-theme='dark'] {
@@ -29,6 +34,10 @@
   --color-333: #333;
   --color-delete: #a92e2e;
   --shadow: rgba(255, 255, 255, 0.2);
+  --table-title-background: #3f3f3f;
+  --table-divider: #8a8a8a;
+  --color-444: #242526;
+  --calendar-icon-filter: invert(1);
 }
 
 
@@ -36,13 +45,6 @@ body.page-polls-details {
   color: var(--foreground-color);
 }
 
-/* @media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-color: #ffffff;
-    --background-start-rgb: 43, 48, 70;
-    --background-end-rgb: 47, 54, 150;
-  }
-} */
 
 body {
   color: rgb(var(--foreground-color));
@@ -64,21 +66,17 @@ body {
   margin: 0 auto;
   padding: 2rem;
   border-radius: 0.25rem;
-  background-image: var(--container-background); /* Adjust the gradient colors */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Increased shadow intensity */
-  border: 2px solid rgba(255, 255, 255, 0.2); /* Increased border thickness */
+  background-image: var(--container-background);
+  /* Adjust the gradient colors */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  /* Increased shadow intensity */
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  /* Increased border thickness */
   box-sizing: border-box;
   color: var(--color-primary);
-  position: relative; /* Added for positioning */
+  position: relative;
+  /* Added for positioning */
   transition: color 0.3s ease-in-out;
-  
-}
-
-
-.flex {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
 
 }
 
@@ -89,22 +87,13 @@ body {
   }
 }
 
-.user-list-container {
-  flex: 1;
-  margin: 0 auto;
-}
-.user-list-container ul {
-  padding: 0;
-  margin: 0;
-  list-style: none;
-  width: 100%;
+.flex {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
 }
 
-.user-list-container li {
-  display: flex;
-  align-items: flex-start;
-  margin-bottom: 8px;
-}
 
 .username {
   display: flex;
@@ -120,18 +109,89 @@ body {
   color: var(--color-poll-date);
 }
 
-@media (prefers-color-scheme: dark) {
-  .user-email {
-    color: var(--color-poll-date);
-  }
+
+/*users management table styling*/
+
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
 }
 
-@media (max-width: 768px) {
-  .container {
-    flex-direction: column;
-    align-items: stretch;
-  }
+.user-table th,
+.user-table td {
+  padding: 16px 8px;
+  text-align: left;
+  border-bottom: 1px solid var(--table-divider);
+  max-width: 200px;
+  overflow-wrap: break-word;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
+
+
+.user-table th {
+  background-color: var(--table-title-background);
+  font-weight: bold;
+}
+
+.user-table td button {
+  margin-right: 4px;
+}
+
+.user-table td button:last-child {
+  margin-right: 0;
+}
+
+.user-table td button:hover {
+  cursor: pointer;
+  background-color: #ddd;
+}
+
+.user-table td button:active {
+  background-color: #ccc;
+}
+
+.user-table td:last-child {
+  white-space: nowrap;
+}
+
+.user-table td:first-child {
+  width: 5%;
+}
+
+.user-table td:nth-child(2),
+.user-table td:nth-child(3),
+.user-table td:nth-child(4),
+.user-table td:nth-child(5) {
+  width: 15%;
+}
+
+.user-table td:nth-child(6),
+.user-table td:nth-child(7) {
+  width: 20%;
+}
+
+
+
+.table-button {
+  padding: 4px 8px;
+  font-size: 14px;
+  font-weight: bold;
+  border: 1px solid var(--color-primary);
+  background-color: transparent;
+  color: var(--color-primary);
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  min-width: 80px;
+}
+
+.table-button:hover {
+  opacity: 0.9;
+}
+
+
+
 .border-r-2 {
   border-right: 2px solid rgb(0, 0, 0);
 }
@@ -147,6 +207,22 @@ body {
   width: 100%;
   max-width: 400px;
 }
+
+
+.choices-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.buttons-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 400px;
+}
+
 
 .manage-users-button {
   align-self: flex-end;
@@ -175,7 +251,11 @@ header {
   border-bottom: solid 2px var(--buttom-background);
 }
 
-
+nav {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
 
 
 .logo img {
@@ -202,8 +282,18 @@ header {
 }
 
 .header-item-spacer {
-  margin-right: 100px;
-  margin-left: 50px;
+  margin-right: 50px;
+  margin-left: 25px;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+.header-right {
+  display: flex;
+  margin-left: auto;
 }
 
 .add-users-button {
@@ -216,6 +306,7 @@ header {
 }
 
 
+
 .poll-create-button {
   background-color: var(--buttom-background);
   color: var(--color-primary);
@@ -226,14 +317,11 @@ header {
 }
 
 
-.logout-item {
 
-}
 
-.logout-button-container {
-  margin-left: auto;
-  right: 50px;
-}
+.logout-item {}
+
+
 .logout-button {
   background-color: var(--buttom-background);
   color: var(--color-primary);
@@ -241,7 +329,7 @@ header {
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
-  
+
 }
 
 
@@ -250,7 +338,18 @@ header h1 {
   margin: 0;
 }
 
-.container > main {
+.action-link {
+  text-decoration: none;
+  color: var(--color-primary);
+  transition: color 0.3s ease-in-out, text-decoration 0.3s ease-in-out;
+}
+
+.action-link:hover {
+  text-decoration: underline;
+}
+
+
+.container>main {
   flex-grow: 1;
 }
 
@@ -293,7 +392,8 @@ header h1 {
 }
 
 .container ul li::before {
-  content: '\2022';       /*bullet point dot before list.*/
+  content: '\2022';
+  /*bullet point dot before list.*/
   margin-right: 0.5rem;
 }
 
@@ -306,7 +406,7 @@ header h1 {
 }
 
 .container ul li:nth-child(even) {
-  color: var(--color-poll-date);
+  color: var(--color-primary);
 }
 
 
@@ -326,52 +426,65 @@ header h1 {
   padding: 5rem;
   box-sizing: border-box;
   background-image: var(--container-background);
-  border-radius: 10px; /* Added border radius for rounded corners */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4); /* Increased shadow intensity */
-  border: 1px solid var(--color-mix); /* Increased border thickness */
+  border-radius: 10px;
+  /* Added border radius for rounded corners */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  /* Increased shadow intensity */
+  border: 1px solid var(--color-mix);
+  /* Increased border thickness */
   color: var(--color-primary);
 }
 
 .login-container h1 {
-  font-size: 2.5rem; /* Increased font size */
-  margin-bottom: 2rem; /* Increased margin bottom */
-  color: var(--color-primary); /* Added text color */
+  font-size: 2.5rem;
+  /* Increased font size */
+  margin-bottom: 2rem;
+  /* Increased margin bottom */
+  color: var(--color-primary);
+  /* Added text color */
 }
 
 .login-container form {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%; /* Adjusted width */
+  width: 100%;
+  /* Adjusted width */
 }
 
 .login-container form div {
-  margin-bottom: 1.5rem; /* Increased margin bottom */
+  margin-bottom: 1.5rem;
+  /* Increased margin bottom */
 }
 
 .login-container label {
   font-weight: bold;
   margin-bottom: 1rem;
-  color: var(--color-primary);  /* Added text color */
+  color: var(--color-primary);
+  /* Added text color */
 }
 
 .login-container input {
   padding: 1rem;
   width: 100%;
-  border-radius: 5px; /* Added border radius for rounded corners */
+  border-radius: 5px;
+  /* Added border radius for rounded corners */
   border: 1px solid var(--color-mix);
   background-color: var(--color-333);
   color: var(--color-primary);
 }
 
 .login-container button {
-  padding: 1rem 2rem; /* Increased padding */
-  font-size: 1rem; /* Increased font size */
+  padding: 1rem 2rem;
+  /* Increased padding */
+  font-size: 1rem;
+  /* Increased font size */
   background-color: var(--buttom-background);
   color: var(--color-primary);
   border: 1px solid var(--color-mix);
   cursor: pointer;
-  border-radius: 10px; /* Added border radius for rounded corners */
+  border-radius: 10px;
+  /* Added border radius for rounded corners */
 }
 
 .login-container button:hover {
@@ -381,18 +494,23 @@ header h1 {
 /* poll list on index styling */
 
 .poll-list-container {
-  flex: 1 0 35%; /* Adjust the flex property to control the width */
+  flex: 1 0 35%;
+  /* Adjust the flex property to control the width */
   width: 100%;
-  padding-right: 20px; /* Add spacing between poll list and user list */
+  padding-right: 20px;
+  /* Add spacing between poll list and user list */
   box-sizing: border-box;
-  transition: flex 0.3s ease; /* Add a transition for smooth resizing */
+  transition: flex 0.3s ease;
+  /* Add a transition for smooth resizing */
 }
 
 
 .poll-list {
   display: grid;
-  width: 100%; /* Make the poll list wider */
+  width: 100%;
+  /* Make the poll list wider */
 }
+
 .poll-list h2 {
   font-size: 24px;
   margin-bottom: 16px;
@@ -405,14 +523,18 @@ header h1 {
   border: 1px solid var(--color-primary);
   border-radius: 10px;
   margin-bottom: 16px;
-  max-width: 800px;
-  min-width: 500px;
+  width: 700px;
+  /* Add a fixed width */
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+  position: relative;
 }
 
-@media (prefers-color-scheme: dark) {
-  .poll-list .poll-item {
-    border-color: var(--color-primary);
-  }
+.poll-list .poll-item:hover {
+  transform: translateY(-5px);
+  /* Move the hovered poll item up */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  /* Add a shadow effect on hover */
 }
 
 .poll-list .poll-details {
@@ -438,12 +560,9 @@ header h1 {
   word-break: break-word;
   max-height: 3.6em;
   cursor: pointer;
-}
+  width: 100%;
+  /* Add width to make the title consistent in size */
 
-@media (prefers-color-scheme: dark) {
-  .poll-list .poll-title-link {
-    color: var(--color-primary);
-  }
 }
 
 .poll-list .poll-datetime {
@@ -478,14 +597,17 @@ header h1 {
 }
 
 label {
-  color: var(--color-primary);;
+  color: var(--color-primary);
+  ;
   font-weight: bold;
 }
 
 .text-input {
+
   width: 100%;
   padding: 10px;
   border-radius: 5px;
+  background-color: var(--color-444);
   border: 1px solid var(--color-mix);
   color: var(--color-primary);
 }
@@ -515,113 +637,6 @@ label {
 }
 
 
-
-/*Poll creation in admin styling*/
-.container .add-poll {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 50vw;
-  max-width: 1000px; /* Adjusted max-width */
-  margin: 0 auto;
-  padding: 2rem;
-  border-radius: 0.25rem;
-  background-image: var(--container-background);
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  box-sizing: border-box;
-  color: var(--color-primary);
-  position: relative;
-}
-
-.container.add-poll h1 {
-  margin-bottom: 1rem;
-  font-size: 2rem;
-}
-
-.container.add-poll form {
-  width: 100%;
-  max-width: 400px; /* Adjusted max-width */
-}
-
-.container.add-poll label {
-  display: block;
-  margin-bottom: 1rem;
-}
-
-.container.add-poll input[type="text"],
-.container.add-poll input[type="datetime-local"] {
-  width: 100%;
-  padding: 0.5rem; /* Adjusted padding */
-  border: 1px solid #ccc;
-  border-radius: 0.25rem;
-  background-color: var(--color-333); /* Added light mode background color */
-  color: var(--color-primary); /* Added light mode text color */
-  margin-bottom: 0.5rem; /* Added margin-bottom */
-}
-
-.container.add-poll button {
-  width: fit-content; /* Adjusted width */
-  padding: 0.5rem 1rem; /* Adjusted padding */
-  margin-top: 1rem;
-  background-color: #2196f3;
-  color: var(--color-primary);
-  cursor: pointer;
-}
-
-.container.add-poll button:hover {
-  background-color: #0c7ed6;
-}
-
-/* Light mode colors */
-@media (prefers-color-scheme: light) {
-  .container.add-poll {
-    background-image: var(--container-background);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    color: var(--color-primary);
-  }
-
-  .container.add-poll input[type="text"],
-  .container.add-poll input[type="datetime-local"] {
-    background-color: var(--color-333);
-    color: var(--color-primary);
-  }
-
-  .container.add-poll button {
-    background-color: #2196f3;
-    color: var(--color-primary);
-  }
-
-  .container.add-poll button:hover {
-    background-color: #0c7ed6;
-  }
-}
-
-/* Dark mode colors */
-@media (prefers-color-scheme: dark) {
-  .container.add-poll {
-    background-image: var(--container-background);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    color: var(--color-primary);
-  }
-
-  .container.add-poll input[type="text"],
-  .container.add-poll input[type="datetime-local"] {
-    background-color: var(--color-333); /* Dark blue background */
-    color: var(--color-primary); /* White text color */
-  }
-
-  .container.add-poll button {
-    background-color: #006699; /* Darker button color */
-    color: var(--color-primary);
-  }
-
-  .container.add-poll button:hover {
-    background-color: #005580; /* Darker hover color */
-  }
-}
-
-
-
 .container label {
   display: block;
   margin-bottom: 1rem;
@@ -629,11 +644,18 @@ label {
 
 .container input[type="text"],
 .container input[type="datetime-local"] {
+  background-color: var(--color-444);
   width: 100%;
   padding: 0.5rem;
   border-radius: 5px;
   border: 1px solid var(--color-mix);
+  color: var(--color-primary);
 }
+
+.container input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+  filter: var(--calendar-icon-filter);
+}
+
 
 .container .save-button {
   margin-top: 1rem;
@@ -691,11 +713,11 @@ label {
 }
 
 .pagination-button:hover {
-  background-color: #e2e8f0;
+  opacity: 0.9;
 }
 
 .pagination-button.active {
-  background-color: #2374e1;
+  background-color: var(--buttom-background);
   color: #ffffff;
 }
 
@@ -714,22 +736,25 @@ label {
 
 .toggle-icon {
   cursor: pointer;
-  transition: color 0.3s ease; 
+  transition: color 0.3s ease;
 }
 
 .toggle-icon.sun {
   color: #fdd835;
-  font-size: 1.5rem; /* Set the color for the sun icon */
+  font-size: 1.5rem;
+  /* Set the color for the sun icon */
 }
 
 .toggle-icon.moon {
   color: #3f51b5;
-  font-size: 1.5rem; /* Set the color for the moon icon */
+  font-size: 1.5rem;
+  /* Set the color for the moon icon */
 }
 
 .toggle-icon.sun:hover,
 .toggle-icon.moon:hover {
-  opacity: 0.8; /* Set the opacity when hovering over the icons */
+  opacity: 0.8;
+  /* Set the opacity when hovering over the icons */
 }
 
 .toggle-icon.sun:before,
@@ -737,15 +762,114 @@ label {
   display: inline-block;
   margin-right: 8px;
   font-size: 20px;
-  transition: opacity 0.3s ease-in-out; 
+  transition: opacity 0.3s ease-in-out;
 }
 
 .toggle-icon.sun:before {
-  content: '\f185'; /* Set the content to the sun icon's unicode */
+  content: '\f185';
+  /* Set the content to the sun icon's unicode */
   font-family: 'Font Awesome 5 Free';
 }
 
 .toggle-icon.moon:before {
-  content: '\f186'; /* Set the content to the moon icon's unicode */
+  content: '\f186';
+  /* Set the content to the moon icon's unicode */
   font-family: 'Font Awesome 5 Free';
+}
+
+/* second-header */
+
+.second-header {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  margin-bottom: 20px;
+  /* justify-content: center; */
+  /* flex-direction: column;
+  align-items: flex-end; */
+}
+
+/* SearchBar style */
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.search-bar__input {
+  padding: 8px;
+  border: 1px solid var(--color-mix);
+  border-radius: 5px;
+  margin-right: 8px;
+  font-size: 14px;
+  outline: none;
+  width: max-content;
+  color: var(--foreground-color);
+  /* Set text color */
+  background-color: var(--container-background);
+  /* Set background color */
+
+}
+
+/* DropdownSort style */
+
+.dropdown-sort {
+  display: inline-block;
+}
+
+.dropdown-sort__select {
+  padding: 8px;
+  border: 1px solid var(--color-mix);
+  border-radius: 4px;
+  font-size: 14px;
+  outline: none;
+  cursor: pointer;
+  appearance: none;
+  background-color: var(--color-444);
+  color: var(--foreground-color);
+  /* Set text color */
+}
+
+
+.dropdown-sort__select:hover {
+  border-color: #999;
+}
+
+.dropdown-sort__select:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+.dropdown-sort__select::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid #999;
+  pointer-events: none;
+}
+
+.dropdown-sort__select:focus::after {
+  border-top-color: #007bff;
+}
+
+.dropdown-sort__select option {
+  font-size: 14px;
+}
+
+.error-container {
+  min-width: 725px;
+  /* Add a minimum height to prevent the content from being bunched up */
+  min-height: 100px;
+  display: flex;
+  align-items: center;
+  /* Vertically center the error message */
+  justify-content: center;
+  /* Horizontally center the error message */
 }

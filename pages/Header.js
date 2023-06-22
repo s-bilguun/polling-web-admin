@@ -8,6 +8,7 @@ import { faSun } from "@fortawesome/free-solid-svg-icons";
 import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
+import { faUsers } from "@fortawesome/free-solid-svg-icons";
 
 const Header = () => {
   const { user, logout } = useContext(AuthContext);
@@ -53,52 +54,62 @@ const Header = () => {
       window.localStorage.setItem('theme', 'light');
     }
   }, [darkTheme]);
-
   return (
     <header>
       <nav>
-        <ul className="header-list">
-          <li>
-            <Link href="/">
-              <div className="logo">
-                <img src="/logo.png" alt="Logo" />
-              </div>
-            </Link>
-          </li>
-          <li>
-            <div className="toggle-container">
-              <FontAwesomeIcon
-                icon={darkTheme ? faMoon : faSun}
-                className={`toggle-icon ${darkTheme ? 'moon' : 'sun'}`}
-                onClick={handleToggle}
-              />
-            </div>
-          </li>
-
-          <li className="header-item header-item-spacer">
-            <Link href="/register_user">
-              <button className="add-users-button"><FontAwesomeIcon icon={faUserPlus} /> Add User</button>
-            </Link>
-          </li>
-          <li className="header-item header-item-spacer">
-            <Link href="/poll_create">
-              <button className="poll-create-button"><FontAwesomeIcon icon={faPlus} /> Create Poll</button>
-            </Link>
-          </li>
-          {email && (
-            <React.Fragment>
-              <li className="header-item">Logged in as: {email}</li>
-              <li className="header-item logout-item">
-                <div className="logout-button-container">
-                  <button className="logout-button" onClick={handleLogout}><FontAwesomeIcon icon={faRightFromBracket} /> Logout</button>
+        <div className="header-left">
+          <ul className="header-list">
+            <li>
+              <Link href="/">
+                <div className="logo">
+                  <img src="/logo.png" alt="Logo" />
                 </div>
-              </li>
-            </React.Fragment>
-          )}
-        </ul>
+              </Link>
+            </li>
+            <li>
+              <div className="toggle-container">
+                <FontAwesomeIcon
+                  icon={darkTheme ? faMoon : faSun}
+                  className={`toggle-icon ${darkTheme ? 'moon' : 'sun'}`}
+                  onClick={handleToggle}
+                />
+              </div>
+            </li>
+            <li className="header-item header-item-spacer">
+              <Link href="/register_user" className="action-link">
+                <FontAwesomeIcon icon={faUserPlus} /> Хэрэглэгч нэмэх
+              </Link>
+            </li>
+            <li className="header-item header-item-spacer">
+              <Link href="/users" className="action-link">
+                <FontAwesomeIcon icon={faUsers} /> Хэрэглэгчид
+              </Link>
+            </li>
+            <li className="header-item header-item-spacer">
+              <Link href="/poll_create" className="action-link">
+                <FontAwesomeIcon icon={faPlus} /> Санал асуулга үүсгэх
+              </Link>
+            </li>
+          </ul>
+        </div>
+        <div className="header-right">
+          <ul className="header-list">
+            {email && (
+              <React.Fragment>
+                <li className="header-item">Нэвтэрсэн: {email}</li>
+                <li className="header-item logout-item">
+                  <div className="logout-button-container">
+                    <button className="logout-button" onClick={handleLogout}><FontAwesomeIcon icon={faRightFromBracket} /> Logout</button>
+                  </div>
+                </li>
+              </React.Fragment>
+            )}
+          </ul>
+        </div>
       </nav>
     </header>
   );
+  
 };
 
 export default Header;

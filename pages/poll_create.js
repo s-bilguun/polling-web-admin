@@ -4,12 +4,13 @@ import withAuth from './withAuth';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 import { AuthContext } from './AuthContext';
+import moment from 'moment';
 
 const AddPoll = () => {
   const { user } = useContext(AuthContext);
 
   const [question, setQuestion] = useState('');
-  const [startDateTime, setStartDateTime] = useState('');
+  const [startDateTime, setStartDateTime] = useState(moment().format('YYYY-MM-DDTHH:mm'));
   const [endDateTime, setEndDateTime] = useState('');
   const [choices, setChoices] = useState(['', '']);
 
@@ -71,54 +72,67 @@ const AddPoll = () => {
   };
   return (
     <Layout>
-      <div className="container add-poll">
-        <h1>Add Poll</h1>
-        <form onSubmit={handlePollSubmit}>
-          <label>
-            Question:
+      <div className="container">
+        <h1>Санал асуулга нэмэх</h1>
+        <form className="form" onSubmit={handlePollSubmit}>
+          <div className="form-group">
+            <label htmlFor="question">Асуулт:</label>
             <input
+              className="text-input"
+              id="question"
               type="text"
               value={question}
               onChange={(e) => setQuestion(e.target.value)}
               required
             />
-          </label>
-          <label>
-            Start Date & Time:
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="startDateTime">Эхлэг цаг:</label>
             <input
+              className="text-input"
+              id="startDateTime"
               type="datetime-local"
               value={startDateTime}
               onChange={(e) => setStartDateTime(e.target.value)}
               required
             />
-          </label>
-          <label>
-            End Date & Time:
+          </div>
+          <div className="form-group">
+            <label htmlFor="endDateTime">Дуусах цаг:</label>
             <input
+              className="text-input"
+              id="endDateTime"
               type="datetime-local"
               value={endDateTime}
               onChange={(e) => setEndDateTime(e.target.value)}
               required
             />
-          </label>
+          </div>
+          <div className="form-group">
+  <label htmlFor="choices">Сонголтууд:</label>
+  <div className="choices-container">
+    {choices.map((choice, index) => (
+      <div key={index}>
+        <input
+          className="text-input"
+          id={`choice-${index}`}
+          type="text"
+          value={choice}
+          onChange={(e) => handleChoiceChange(index, e.target.value)}
+          required
+        />
+      </div>
+      
+    ))}
+   
+  </div>
+</div>
+<div className="buttons-container">
+  <button className="add-user-submit" type="button" onClick={handleAddChoice}>Add choice</button>
+  <button className="add-user-submit" type="submit">Үүсгэх</button>
+</div>
 
-          <label>
-            Choices:
-            {choices.map((choice, index) => (
-              <div key={index}>
-                <input
-                  type="text"
-                  value={choice}
-                  onChange={(e) => handleChoiceChange(index, e.target.value)}
-                  required
-                />
-              </div>
-            ))}
-            <button type="button" className="add-user-submit" onClick={handleAddChoice}>
-              Add Choice
-            </button>
-          </label>
-          <button type="submit" className="add-user-submit">Submit</button>
         </form>
       </div>
     </Layout>
