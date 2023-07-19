@@ -20,7 +20,6 @@ const AddUser = () => {
     const username = document.getElementById('username').value;
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
-    const birthdate = document.getElementById('birthdate').value;
     const role = document.getElementById('role').options[document.getElementById('role').selectedIndex].text;
 
     try {
@@ -31,7 +30,6 @@ const AddUser = () => {
           username: username,
           email: email,
           password: password,
-          birthdate: birthdate,
           role: role,
         },
         {

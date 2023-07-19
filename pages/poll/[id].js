@@ -34,7 +34,7 @@ const PollPage = () => {
   
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:8001/poll/${id}`);
+        const response = await axios.get(`http://localhost:8001/poll/getPoll/${id}`);
         const { asuult } = response.data;
         setPoll(response.data);
         console.log(asuult);
@@ -85,18 +85,23 @@ const PollPage = () => {
   // State to toggle edit mode
   const [editMode, setEditMode] = useState(false);
 
-  // Function to handle deletion of the poll
-  const handleDelete = () => {
-    axios
-      .delete(`http://localhost:8001/poll/adminDeletePoll/${id}`)
-      .then((response) => {
-        // After deletion, navigate back to the admin page
-        router.push('/');
-      })
-      .catch((error) => {
-        // Handle errors
-      });
-  };
+// Function to handle deletion of the poll
+const handleDelete = () => {
+  const confirmed = window.confirm('Are you sure you want to delete this poll?');
+  if (!confirmed) {
+    return;
+  }
+
+  axios
+    .delete(`http://localhost:8001/poll/adminDeletePoll/${id}`)
+    .then((response) => {
+      // After deletion, navigate back to the admin page
+      router.push('/');
+    })
+    .catch((error) => {
+      // Handle errors
+    });
+};
 
   // Function to handle editing of the poll
   const handleEdit = () => {
@@ -138,13 +143,13 @@ const PollPage = () => {
   return (
     <Layout>
       <div className="container">
-        <h1>Poll Details</h1>
+        <h1>Санал асуулгын мэдээлэл</h1>
         {poll && (
           <>
             {editMode ? (
               <div>
                 <label>
-                  Question:
+                  Асуулт:
                   <input
                     type="text"
                     value={poll.question}
@@ -152,7 +157,7 @@ const PollPage = () => {
                   />
                 </label>
                 <label>
-                  Start Date:
+                 Эхлэх цаг:
                   <input
                     type="datetime-local"
                     value={editMode ? moment(poll.startdate).format('YYYY-MM-DDTHH:mm') : ''}
@@ -160,7 +165,7 @@ const PollPage = () => {
                   />
                 </label>
                 <label>
-                  Expire Date:
+                  Дуусах цаг:
                   <input
                     type="datetime-local"
                     value={editMode ? moment(poll.expiredate).format('YYYY-MM-DDTHH:mm') : ''}
@@ -169,16 +174,16 @@ const PollPage = () => {
                 </label>
 
                 <button className="save-button" onClick={handleUpdate}>
-                  Save
+                  Хадгалах
                 </button>
               </div>
             ) : (
               <div>
-                <h2>Question: {poll.question}</h2>
-                <p>Start Date: {formatDateTime(poll.startdate)}</p>
-                <p>Expire Date: {formatDateTime(poll.expiredate)}</p>
-                <p>Creator: {poll.username}</p>
-                <p>Choices:</p>
+                <h2>Асуулт: {poll.question}</h2>
+                <p>Эхлэх цаг: {formatDateTime(poll.startdate)}</p>
+                <p>Дуусах цаг: {formatDateTime(poll.expiredate)}</p>
+                <p>Үүсгэгч: {poll.username}</p>
+                <p>Сонголтууд:</p>
                 <ul className="poll-result">
                   {answerLabels.map((label, index) => (
                     <li key={index}>
@@ -188,10 +193,10 @@ const PollPage = () => {
                 </ul>
                 <div className="button-container">
                   <button className="edit-poll" onClick={handleEdit}>
-                    Edit Poll
+                    Засах
                   </button>
                   <button className="delete-poll" onClick={handleDelete}>
-                    Delete Poll
+                   Устгах
                   </button>
                 </div>
               </div>

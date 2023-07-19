@@ -129,7 +129,7 @@ const AddPoll = () => {
   </div>
 </div>
 <div className="buttons-container">
-  <button className="add-user-submit" type="button" onClick={handleAddChoice}>Add choice</button>
+  <button className="add-user-submit" type="button" onClick={handleAddChoice}>Сонголт нэмэх</button>
   <button className="add-user-submit" type="submit">Үүсгэх</button>
 </div>
 

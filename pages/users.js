@@ -48,8 +48,12 @@ const UsersPage = () => {
       console.error('Error updating user:', error);
     }
   };
-
   const handleDeleteUser = async (id) => {
+    const confirmed = window.confirm('Энэ хэрэглэгчийг устгахдаа итгэлтэй байна уу?');
+    if (!confirmed) {
+      return;
+    }
+  
     try {
       await axios.delete(`http://localhost:8001/user/deleteUser/${id}`);
       // Update the user list in the state
@@ -58,7 +62,6 @@ const UsersPage = () => {
       console.error('Error deleting user:', error);
     }
   };
-
   return (
     <Layout>
       <div className="container">

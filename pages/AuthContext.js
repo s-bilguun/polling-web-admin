@@ -12,7 +12,7 @@ const AuthProvider = ({ children }) => {
 
   const login = (token, email) => {
     // Set the token in a cookie
-    Cookies.set('token', token);
+    Cookies.set('adminToken', token);
     Cookies.set('userEmail', email);
     // Set the user state
     setUser({ token, email });
@@ -20,7 +20,7 @@ const AuthProvider = ({ children }) => {
 
   const logout = () => {
     // Remove the token from the cookie
-    Cookies.remove('token');
+    Cookies.remove('adminToken');
     Cookies.remove('userEmail');
     // Reset the user state
     setUser(null);
@@ -31,30 +31,32 @@ const AuthProvider = ({ children }) => {
   const checkAuth = async () => {
     try {
       // Check if the token exists in the cookie
-      const token = Cookies.get('token');
-
+      const token = Cookies.get('adminToken');
+  
       if (token) {
-        // Decode the token to get the user's id
+        // Decode the token to get the user's id and role
         const decodedToken = jwt_decode(token);
         const userId = decodedToken.userid;
-
+        const role = decodedToken.role;
+  
         // Retrieve user data from the server using the correct API endpoint
         const response = await axios.get(`http://localhost:8001/user/${userId}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-
+  
         const { email } = response.data;
-
+  
         // Set the user state
-        setUser({ token, email });
-
-        // Store the email in localStorage
-        if (typeof window !== 'undefined' && email) {
+        setUser({ token, email, role });
+  
+        // Store the email and role in localStorage
+        if (typeof window !== 'undefined' && email && role) {
           localStorage.setItem('userEmail', email);
+          localStorage.setItem('userRole', role);
         }
-
+  
         // Return the updated user object
-        return { token, email };
+        return { token, email, role };
       } else {
         // Reset the user state
         setUser(null);
@@ -68,7 +70,7 @@ const AuthProvider = ({ children }) => {
       return null;
     }
   };
-
+  
   useEffect(() => {
     checkAuth(); // Call checkAuth when the component mounts
   }, []);

@@ -164,7 +164,7 @@ const AdminPage = () => {
             <div className='second-header'>
               <SearchBar setPolls={setPolls} setNotFound={setNotFound} initialPolls={initialPolls} />
               <div>
-                Sort by <FontAwesomeIcon icon={faArrowDownWideShort} className='icon-initial' /> <DropdownSort options={sortOptions} onSelectSort={handleSort} />
+                Ангилах <FontAwesomeIcon icon={faArrowDownWideShort} className='icon-initial' /> <DropdownSort options={sortOptions} onSelectSort={handleSort} />
               </div>
             </div>
             {notFound ? (
